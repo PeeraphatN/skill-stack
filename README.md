@@ -118,4 +118,6 @@ npx github:<owner>/skill-stack
 
 ## สถานะ
 
+ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
+
 อยู่ระหว่างวางแผน PRD/SRS ยังไม่มี installer ที่ใช้งานได้จริง
