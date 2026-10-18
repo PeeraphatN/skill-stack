@@ -4,6 +4,8 @@
 
 เป้าหมายคือให้ติดตั้ง skills ชุดเดียวกันบน **Codex, Pi และ Hermes** ได้ง่าย โดยใช้ `npx skills` เป็น installer กลาง และให้ระบบจัดการ source กับ symlink ผ่าน `~/.agents/skills` ตามมาตรฐานของ skills CLI
 
+ผลสำรวจสำหรับ [Issue #4](https://github.com/PeeraphatN/skill-stack/issues/4) อยู่ใน [วิธีติดตั้งและความเข้ากันได้ของ skills MVP](docs/install-methods.md) พร้อมคำสั่ง ชื่อ skills และหลักฐาน upstream โดย CLI รุ่นที่ตรวจใช้ชื่อ agent `codex`, `pi` และ `hermes-agent` ส่วน Codex กับ Pi อ่าน `~/.agents/skills` โดยตรง ไม่ต้องมี symlink แยก
+
 ## ปัญหา
 
 เวลาย้ายเครื่องทำงานต้องติดตั้ง skills ทีละรายการด้วยมือ วิธีติดตั้งของแต่ละ skill ก็ไม่เหมือนกัน และแต่ละ OS อาจมี path หรือคำสั่งต่างกัน
@@ -49,7 +51,8 @@ npx skills add --global
 ~/.agents/skills/<skill>
         |
         v
-symlink ไปยัง Codex / Pi / Hermes
+Codex / Pi อ่านโดยตรง
+Hermes อ่านผ่าน symlink ที่ ~/.hermes/skills/<skill>
 ```
 
 โปรเจกต์นี้จะไม่จัดการ symlink เอง เพราะ `npx skills` มีหน้าที่ดูแล global skills และ agent directories อยู่แล้ว
@@ -69,7 +72,7 @@ skill-stack/
 
 ```json
 {
-  "agents": ["codex", "pi", "hermes"],
+  "agents": ["codex", "pi", "hermes-agent"],
   "skills": [
     {
       "name": "no-ai-slop",
