@@ -1,0 +1,121 @@
+# Skill Stack
+
+ศูนย์รวมสำหรับติดตั้งและจัดการ skills ที่ใช้กับ coding agents หลายตัวบนเครื่องใหม่
+
+เป้าหมายคือให้ติดตั้ง skills ชุดเดียวกันบน **Codex, Pi และ Hermes** ได้ง่าย โดยใช้ `npx skills` เป็น installer กลาง และให้ระบบจัดการ source กับ symlink ผ่าน `~/.agents/skills` ตามมาตรฐานของ skills CLI
+
+## ปัญหา
+
+เวลาย้ายเครื่องทำงานต้องติดตั้ง skills ทีละรายการด้วยมือ วิธีติดตั้งของแต่ละ skill ก็ไม่เหมือนกัน และแต่ละ OS อาจมี path หรือคำสั่งต่างกัน
+
+## เป้าหมาย
+
+- ติดตั้ง skills ที่ใช้งานประจำด้วยคำสั่งเดียว
+- รองรับ Linux, macOS และ Windows
+- ใช้งานกับ Codex, Pi และ Hermes เป็นหลัก
+- เก็บรายการ skills ไว้ใน manifest เดียว
+- ใช้ symlink ที่ skills CLI จัดการให้
+- เพิ่ม custom skills ของตัวเองได้ในอนาคต
+- ทำให้ custom skills publish เป็น public skills และติดตั้งผ่าน `npx skills` ได้
+
+## MVP
+
+MVP จะเริ่มจาก skills ที่ติดตั้งผ่าน `npx skills add` ได้ง่ายก่อน:
+
+- [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
+- [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop)
+- [mattpocock/skills](https://github.com/mattpocock/skills)
+- [thananon/9arm-skills](https://github.com/thananon/9arm-skills)
+
+รายการที่เกี่ยวข้องแต่จะเพิ่มในระยะถัดไป เพราะใช้วิธีติดตั้งเฉพาะ:
+
+- [trailhq/Trail-Code](https://github.com/trailhq/Trail-Code)
+- [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)
+- [Ar9av/obsidian-wiki](https://github.com/Ar9av/obsidian-wiki)
+- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
+
+## แนวทางการทำงาน
+
+```text
+skill-stack repository
+        |
+        v
+  install.mjs
+        |
+        v
+npx skills add --global
+        |
+        v
+~/.agents/skills/<skill>
+        |
+        v
+symlink ไปยัง Codex / Pi / Hermes
+```
+
+โปรเจกต์นี้จะไม่จัดการ symlink เอง เพราะ `npx skills` มีหน้าที่ดูแล global skills และ agent directories อยู่แล้ว
+
+## โครงสร้างที่วางแผนไว้
+
+```text
+skill-stack/
+├── manifest.json
+├── install.mjs
+├── install.sh
+├── install.ps1
+└── README.md
+```
+
+## Manifest ที่วางแผนไว้
+
+```json
+{
+  "agents": ["codex", "pi", "hermes"],
+  "skills": [
+    {
+      "name": "no-ai-slop",
+      "repo": "petergyang/no-ai-slop",
+      "installer": "npx-skills"
+    },
+    {
+      "name": "9arm-skills",
+      "repo": "thananon/9arm-skills",
+      "installer": "npx-skills"
+    }
+  ]
+}
+```
+
+## คำสั่งที่ต้องการรองรับ
+
+```bash
+node install.mjs
+```
+
+ในอนาคตอาจรองรับการเรียกผ่าน package โดยตรง:
+
+```bash
+npx github:<owner>/skill-stack
+```
+
+## ข้อกำหนดเบื้องต้น
+
+- Node.js และ npm
+- `npx skills`
+- สิทธิ์สำหรับติดตั้ง global skills
+- GitHub access หากมี private skills ในอนาคต
+
+## Roadmap
+
+1. สรุป install method และชื่อ agent ที่รองรับจริง
+2. เพิ่ม `manifest.json`
+3. เขียน `install.mjs` สำหรับ MVP
+4. เพิ่ม wrapper สำหรับ shell และ PowerShell
+5. ทดสอบบน macOS, Linux และ Windows
+6. เพิ่มคำสั่งตรวจสอบสถานะและ update
+7. เพิ่ม Trail-Code และ skills ที่ใช้ installer เฉพาะ
+8. เพิ่ม custom skills ส่วนตัว
+9. publish custom skills ให้ติดตั้งผ่าน `npx skills` ได้
+
+## สถานะ
+
+อยู่ระหว่างวางแผน PRD/SRS ยังไม่มี installer ที่ใช้งานได้จริง
