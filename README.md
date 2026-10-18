@@ -121,3 +121,5 @@ npx github:<owner>/skill-stack
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
 อยู่ระหว่างวางแผน PRD/SRS ยังไม่มี installer ที่ใช้งานได้จริง
+
+ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
