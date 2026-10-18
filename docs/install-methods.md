@@ -32,10 +32,10 @@ npx --yes skills@1.7.2 add thananon/9arm-skills --list
 คำสั่งติดตั้งตัวอย่างที่นำไปใช้ต่อได้ด้านล่าง **ยังไม่ได้รันติดตั้งจริง** `--yes` หน้าชื่อ package ตอบรับ npm ส่วนท้ายตอบรับ skills CLI; `--skill` เลือกจากชื่อใน frontmatter ไม่ใช่ชื่อ repo:
 
 ```bash
-npx --yes skills@1.7.2 add DietrichGebert/ponytail --global --agent codex pi hermes-agent --skill ponytail ponytail-audit ponytail-debt ponytail-gain ponytail-help ponytail-review --yes
+npx --yes skills@1.7.2 add DietrichGebert/ponytail --global --agent codex pi hermes-agent --skill ponytail ponytail-audit ponytail-debt --yes
 npx --yes skills@1.7.2 add petergyang/no-ai-slop --global --agent codex pi hermes-agent --skill no-ai-slop --yes
-npx --yes skills@1.7.2 add mattpocock/skills --global --agent codex pi hermes-agent --skill setup-matt-pocock-skills tdd --yes
-npx --yes skills@1.7.2 add thananon/9arm-skills --global --agent codex pi hermes-agent --skill debug-mantra post-mortem qwen-agent scrutinize management-talk qwenchance --yes
+npx --yes skills@1.7.2 add mattpocock/skills --global --agent codex pi hermes-agent --skill code-review codebase-design domain-modeling grill-with-docs implement improve-codebase-architecture pr research retro tdd to-spec to-tickets triage wayfinder writing-for-agents --yes
+npx --yes skills@1.7.2 add thananon/9arm-skills --global --agent codex pi hermes-agent --skill debug-mantra post-mortem scrutinize management-talk --yes
 ```
 
 ตัวอย่าง Matt เลือกเพียง setup กับ tdd เพื่อแสดง syntax ไม่ได้ตัดสินว่าชุด MVP ต้องมีแค่สองตัวนี้ รายการที่จะติดตั้งจริงต้องกำหนดใน Issue #5 ส่วน 9arm เลือกชื่อครบ repo เพื่อแสดงวิธีแจกไฟล์ แต่ `qwen-agent` กับ `qwenchance` มี dependency ตามหัวข้อด้านล่าง การติดตั้งด้วยคำสั่งนี้ยังไม่ได้ทำให้พร้อมใช้ทันที
