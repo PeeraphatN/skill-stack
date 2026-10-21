@@ -13,6 +13,24 @@ node install.mjs
 หรืออักษรไทย สคริปต์อ่าน `manifest.json` ข้างตัวเอง ไม่อ่าน manifest ใน working directory
 รายการ source, skills และ agents มาจาก manifest ทั้งหมด ดูกติกาที่ [Manifest contract](manifest.md)
 
+## เรียกผ่าน shell บน Linux/macOS
+
+จาก checkout ใช้ `./install.sh` หรือ `sh install.sh` ได้ หากอยู่ directory อื่น ให้ระบุ path ของ checkout:
+
+```sh
+sh "/path/to/skill-stack/install.sh"
+```
+
+`install.sh` ใช้ POSIX `sh` ไม่ต้องมี Bash โดยหา `install.mjs` จาก directory ของ wrapper
+แล้วส่งต่อให้ `node` ใน PATH ด้วย `exec` จึงคืน exit code และแสดงผลของ installer โดยตรง
+ไม่เปลี่ยน working directory ของ installer และไม่มีรายการ skills หรือตรรกะติดตั้งแยกอีกชุด
+รองรับ path ที่มีช่องว่างและอักษรไทย เมื่อเรียกด้วย path ให้ครอบด้วยเครื่องหมายคำพูด
+ควรเรียกไฟล์ wrapper ใน checkout โดยตรง ไม่ใช่ symlink ที่วางแยกจาก `install.mjs`
+
+arguments ถูกส่งต่อแบบเดิมทุกตัว แต่ `install.mjs` ปัจจุบันยังไม่มี command-line options
+ถ้าขึ้น `node: not found` ให้ติดตั้ง Node.js >=22.20.0 หรือเพิ่ม Node.js ใน PATH แล้วเรียกใหม่
+wrapper จะจบด้วยสถานะไม่สำเร็จเมื่อหา Node.js ไม่พบ และไม่ติดตั้ง Node.js ให้เอง
+
 บน Windows ใช้ Node เรียก `npm-cli.js` และ `npx-cli.js` โดยตรง เพราะ `.cmd` ต้องใช้ shell
 สคริปต์หาสองไฟล์นี้ใต้ `node_modules/npm/bin` ข้าง Node executable หรือในแต่ละ directory ของ PATH
 ถ้าไม่พบให้ติดตั้ง Node.js พร้อม npm ให้ครบหรือเพิ่ม directory ที่มีโครงสร้างนี้เข้า PATH
@@ -82,7 +100,11 @@ skills ที่ดาวน์โหลดใหม่ยังไม่ได�
 CLI จาก directory อื่น, arguments ที่ไม่ผ่าน shell, Windows npm resolution และ timeout process tree
 เทสต์ไม่ติดตั้ง skills เข้า home จริงและไม่เรียก npx ดาวน์โหลด upstream skills
 
+เทสต์ shell wrapper บนระบบที่ไม่ใช่ Windows เรียกทั้งผ่าน `sh` และไฟล์ executable จาก directory อื่น
+โดยใช้ installer จำลองข้าง wrapper เพื่อตรวจ path ที่มีช่องว่างและอักษรไทย, arguments,
+working directory และ exit code ทั้งสำเร็จและล้มเหลว เทสต์นี้ไม่ยืนยันผลติดตั้ง skills จริงบน Linux/macOS
+
 การตรวจไฟล์ไม่ได้ยืนยันว่า agent โหลด skill หรือเรียก workflow ได้ครบ รวมถึง hooks, native plugins
 และเครื่องมือภายนอกที่ skill ต้องใช้ การทดสอบ global install จริง การค้นพบ skills และการเปลี่ยนไฟล์
 แล้วสะท้อนผ่าน link บน Linux/macOS/Windows native เป็นงาน Issue #9 ยังไม่มีผลตรวจรับข้าม OS
-ใน ticket นี้ ไม่มี wrappers หรือคำสั่ง status/update เพิ่มเข้ามา
+PowerShell wrapper เป็นงาน Issue #8 ส่วนคำสั่ง status/update เป็นงาน Issue #10
