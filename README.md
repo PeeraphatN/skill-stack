@@ -87,6 +87,17 @@ node --test
 node install.mjs
 ```
 
+บน Windows เรียกผ่าน PowerShell ได้ด้วย:
+
+```powershell
+.\install.ps1
+```
+
+ถ้าอยู่ directory อื่น ใช้ `& 'C:\path with spaces\skill-stack\install.ps1'`
+wrapper เรียก `install.mjs` ข้างตัวเองและคืน exit code เดียวกัน โดยต้องมี `node` ใน PATH
+ถ้า execution policy ไม่อนุญาตให้รันสคริปต์ ใช้ `node 'C:\path with spaces\skill-stack\install.mjs'`
+ได้โดยไม่ต้องเปลี่ยน policy อ่านรายละเอียดใน [คู่มือ installer](docs/installer.md)
+
 ในอนาคตอาจรองรับการเรียกผ่าน package โดยตรง:
 
 ```bash
@@ -122,6 +133,9 @@ installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต�
 
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
-มี manifest, validator และ `install.mjs` พร้อม automated tests แล้ว การติดตั้งจริงและการค้นพบ skills บน Linux/macOS/Windows native ยังต้องตรวจใน Issue #9; wrappers เป็นงานแยก
+มี manifest, validator, `install.mjs` และ PowerShell wrapper `install.ps1` พร้อม automated tests แล้ว
+เทสต์ wrapper บน macOS ตรวจโครงสร้างสคริปต์เท่านั้น ยังไม่ได้รัน PowerShell จริง
+การรัน wrapper บน Windows native การติดตั้งจริง และการค้นพบ skills บน Linux/macOS/Windows native
+ยังต้องตรวจใน Issue #9; shell wrapper เป็นงานแยกใน Issue #7
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)

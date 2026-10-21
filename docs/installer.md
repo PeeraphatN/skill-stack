@@ -18,6 +18,34 @@ node install.mjs
 ถ้าไม่พบให้ติดตั้ง Node.js พร้อม npm ให้ครบหรือเพิ่ม directory ที่มีโครงสร้างนี้เข้า PATH
 ไม่มีการเรียก shell string, Bash, PowerShell, sudo หรือขอสิทธิ์ administrator
 
+## เรียกผ่าน PowerShell บน Windows
+
+ใช้ `install.ps1` เป็นทางเลือกจาก PowerShell 5.1 ขึ้นไป โดยต้องมี `node` ใน PATH:
+
+```powershell
+.\install.ps1
+```
+
+จาก directory อื่น รวมถึง checkout ที่มีช่องว่างหรืออักษรไทย ใช้ call operator `&`:
+
+```powershell
+& 'C:\งานของฉัน\skill stack\install.ps1'
+$LASTEXITCODE
+```
+
+wrapper หา `install.mjs` จาก directory ของตัวเอง ส่ง arguments ต่อให้ Node ด้วย `@args`
+และคืน exit code ของ Node ตามจริง โดยไม่เปลี่ยน working directory ดังนั้น `HERMES_HOME`
+ที่เป็น relative path ยังอิง directory ที่เรียกเหมือนใช้ Node โดยตรง ปัจจุบัน `install.mjs`
+ยังไม่มี CLI options; การส่ง arguments ต่อไม่ได้เพิ่มคำสั่งหรือ flags ให้ installer
+ถ้าเรียก Node ไม่ได้ wrapper จะหยุดด้วย error และสถานะไม่สำเร็จ ให้ติดตั้ง Node.js หรือแก้ PATH ก่อนลองใหม่
+ตรรกะตรวจ prerequisites, manifest และติดตั้งทั้งหมดอยู่ใน Node ไม่มีรายการ skills ซ้ำใน wrapper
+
+หาก execution policy บล็อกไฟล์ `.ps1` ให้ใช้ทางเข้าหลักแทนโดยไม่ต้องเปลี่ยน policy หรือขอ administrator:
+
+```powershell
+node 'C:\งานของฉัน\skill stack\install.mjs'
+```
+
 ## สิ่งที่สคริปต์ทำ
 
 สคริปต์ตรวจ manifest ทั้งชุดก่อนเรียก process จากนั้นตรวจ Node, สิทธิ์เขียน home, npm/npx,
@@ -82,7 +110,12 @@ skills ที่ดาวน์โหลดใหม่ยังไม่ได�
 CLI จาก directory อื่น, arguments ที่ไม่ผ่าน shell, Windows npm resolution และ timeout process tree
 เทสต์ไม่ติดตั้ง skills เข้า home จริงและไม่เรียก npx ดาวน์โหลด upstream skills
 
+สำหรับ `install.ps1` มี static contract test ตรวจ path ที่อิง `$PSScriptRoot`, การส่ง arguments,
+การคืน exit code, การหยุดเมื่อเรียก Node ไม่ได้ และการไม่เปลี่ยน working directory
+เทสต์นี้ผ่านบน macOS โดยไม่ต้องมี PowerShell แต่ยังไม่ยืนยันพฤติกรรมขณะรัน PowerShell จริง
+ต้องตรวจบน Windows native ทั้งกรณีสำเร็จและล้มเหลว รวมถึง path ที่มีช่องว่างและอักษรไทยใน Issue #9
+
 การตรวจไฟล์ไม่ได้ยืนยันว่า agent โหลด skill หรือเรียก workflow ได้ครบ รวมถึง hooks, native plugins
 และเครื่องมือภายนอกที่ skill ต้องใช้ การทดสอบ global install จริง การค้นพบ skills และการเปลี่ยนไฟล์
 แล้วสะท้อนผ่าน link บน Linux/macOS/Windows native เป็นงาน Issue #9 ยังไม่มีผลตรวจรับข้าม OS
-ใน ticket นี้ ไม่มี wrappers หรือคำสั่ง status/update เพิ่มเข้ามา
+`install.ps1` เพิ่มใน Issue #8 ส่วน shell wrapper เป็นงาน Issue #7 และคำสั่ง status/update อยู่นอกขอบเขตนี้
