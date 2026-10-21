@@ -145,7 +145,9 @@ installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต�
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
 มี manifest, validator, `install.mjs`, `install.sh` และ `install.ps1` พร้อม automated tests แล้ว
-เทสต์ PowerShell wrapper บน macOS ตรวจโครงสร้างสคริปต์เท่านั้น ยังไม่ได้รัน PowerShell จริง
-การติดตั้งจริงและการค้นพบ skills บน Linux/macOS/Windows native ยังต้องตรวจใน Issue #9
+ผล [Issue #9: cross-platform validation](docs/cross-platform-validation.md) ยืนยันการติดตั้งจริงครบ 23 skills
+และ source/link reflection บน macOS กับ Windows native ใน temporary homes แล้ว รวมถึง shell/PowerShell wrapper
+รันซ้ำและรายงาน failure ตาม exit code ส่วน Linux และการค้นพบ skills ภายใน Codex/Pi/Hermes ยังไม่ผ่านการตรวจรับ
+จึงยังไม่ถือว่า MVP ผ่านครบสาม OS
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
