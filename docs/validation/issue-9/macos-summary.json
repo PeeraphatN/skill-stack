@@ -1,0 +1,264 @@
+{
+  "dateUTC": "2026-10-21",
+  "sourceCommit": "bd72fd95e127febbb2042d4205b09e0a682733cb",
+  "os": "macOS 26.6.2 (25G83), arm64",
+  "node": "v22.23.2",
+  "npm": "12.0.2",
+  "git": "2.50.1 (Apple Git-155)",
+  "skillsCLI": "1.7.2",
+  "isolation": "fresh environment; HOME/HERMES_HOME/CODEX_HOME/npm cache/TMPDIR inside a temporary root; no agent launched",
+  "commands": [
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "DietrichGebert/ponytail",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "ponytail",
+        "ponytail-audit",
+        "ponytail-debt",
+        "--yes"
+      ],
+      "status": 0
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "petergyang/no-ai-slop",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "no-ai-slop",
+        "--yes"
+      ],
+      "status": 0
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "mattpocock/skills",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "code-review",
+        "codebase-design",
+        "domain-modeling",
+        "grill-with-docs",
+        "implement",
+        "improve-codebase-architecture",
+        "pr",
+        "research",
+        "retro",
+        "tdd",
+        "to-spec",
+        "to-tickets",
+        "triage",
+        "wayfinder",
+        "writing-for-agents",
+        "--yes"
+      ],
+      "status": 0
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "thananon/9arm-skills",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "debug-mantra",
+        "post-mortem",
+        "scrutinize",
+        "management-talk",
+        "--yes"
+      ],
+      "status": 0
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "petergyang/no-ai-slop",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "no-ai-slop",
+        "--yes",
+        "--copy"
+      ],
+      "status": 0
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "12.0.2"
+    },
+    {
+      "argv": [
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.7.2"
+    }
+  ],
+  "checks": {
+    "node --test": {
+      "exit": 0,
+      "tests": 25,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0
+    },
+    "node scripts/validate-manifest.mjs": {
+      "exit": 0
+    },
+    "sh -n install.sh": {
+      "exit": 0
+    },
+    "bash -n install.sh": {
+      "exit": 0
+    },
+    "node install.mjs (first)": {
+      "exit": 0,
+      "linkedEntries": 4,
+      "skills": 23
+    },
+    "node install.mjs (rerun)": {
+      "exit": 0,
+      "skippedEntries": 4
+    },
+    "sh install.sh (rerun)": {
+      "exit": 0,
+      "skippedEntries": 4
+    },
+    "./install.sh (rerun)": {
+      "exit": 0,
+      "skippedEntries": 4
+    },
+    "sh install.sh (conflicting regular file)": {
+      "exit": 1,
+      "filePreserved": true
+    },
+    "npx skills --copy (separate home)": {
+      "exit": 0
+    },
+    "node install.mjs (reduced copy manifest)": {
+      "exit": 0,
+      "warning": "copied fallback"
+    }
+  },
+  "limits": [
+    "No native agent discovery or workflow execution",
+    "No natural permission-denied copy fallback; explicit CLI --copy used",
+    "Downloaded upstream revision not pinned; lock records per-skill folder hashes, not commit SHA"
+  ]
+}

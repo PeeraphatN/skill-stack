@@ -1,0 +1,219 @@
+{
+  "platform": "win32",
+  "node": "v24.11.0",
+  "arch": "x64",
+  "release": "10.0.26300",
+  "base": "$WINDOWS_SMOKE_ROOT",
+  "firstExit": 0,
+  "statuses": [
+    {
+      "name": "ponytail",
+      "status": "linked",
+      "ok": true
+    },
+    {
+      "name": "no-ai-slop",
+      "status": "linked",
+      "ok": true
+    },
+    {
+      "name": "mattpocock-skills",
+      "status": "linked",
+      "ok": true
+    },
+    {
+      "name": "9arm-skills",
+      "status": "linked",
+      "ok": true
+    }
+  ],
+  "rows": [
+    {
+      "skill": "ponytail",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\ponytail",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\ponytail",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "ponytail-audit",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\ponytail-audit",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\ponytail-audit",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "ponytail-debt",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\ponytail-debt",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\ponytail-debt",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "no-ai-slop",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\no-ai-slop",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\no-ai-slop",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "code-review",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\code-review",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\code-review",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "codebase-design",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\codebase-design",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\codebase-design",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "domain-modeling",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\domain-modeling",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\domain-modeling",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "grill-with-docs",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\grill-with-docs",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\grill-with-docs",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "implement",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\implement",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\implement",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "improve-codebase-architecture",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\improve-codebase-architecture",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\improve-codebase-architecture",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "pr",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\pr",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\pr",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "research",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\research",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\research",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "retro",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\retro",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\retro",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "tdd",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\tdd",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\tdd",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "to-spec",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\to-spec",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\to-spec",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "to-tickets",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\to-tickets",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\to-tickets",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "triage",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\triage",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\triage",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "wayfinder",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\wayfinder",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\wayfinder",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "writing-for-agents",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\writing-for-agents",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\writing-for-agents",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "debug-mantra",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\debug-mantra",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\debug-mantra",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "post-mortem",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\post-mortem",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\post-mortem",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "scrutinize",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\scrutinize",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\scrutinize",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    },
+    {
+      "skill": "management-talk",
+      "source": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.agents\\skills\\management-talk",
+      "destination": "$WINDOWS_SMOKE_ROOT\\home ไทย spaces\\.hermes\\skills\\management-talk",
+      "linked": true,
+      "same": true,
+      "reflection": true
+    }
+  ],
+  "nodeRerunExit": 0,
+  "ps1RerunExit": 0,
+  "ps1Error": ""
+}

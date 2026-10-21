@@ -134,10 +134,12 @@ working directory และ exit code ทั้งสำเร็จและล
 
 สำหรับ `install.ps1` มี static contract test ตรวจ path ที่อิง `$PSScriptRoot`, การส่ง arguments,
 การคืน exit code, การหยุดเมื่อเรียก Node ไม่ได้ และการไม่เปลี่ยน working directory
-เทสต์นี้ผ่านบน macOS โดยไม่ต้องมี PowerShell แต่ยังไม่ยืนยันพฤติกรรมขณะรัน PowerShell จริง
-ต้องตรวจบน Windows native ทั้งกรณีสำเร็จและล้มเหลว รวมถึง path ที่มีช่องว่างและอักษรไทยใน Issue #9
+เทสต์นี้ผ่านบน macOS โดยไม่ต้องมี PowerShell ส่วน [Issue #9](cross-platform-validation.md) มีผลรัน wrapper จริง
+บน Windows native/PowerShell 5.1 แล้ว ทั้ง rerun สำเร็จและ conflict/manifest failure ใน temporary home
+พร้อม checkout path ที่มีช่องว่างและอักษรไทย ยังไม่ได้ตรวจ fresh install ผ่าน PowerShell wrapper
 
 การตรวจไฟล์ไม่ได้ยืนยันว่า agent โหลด skill หรือเรียก workflow ได้ครบ รวมถึง hooks, native plugins
-และเครื่องมือภายนอกที่ skill ต้องใช้ การทดสอบ global install จริง การค้นพบ skills และการเปลี่ยนไฟล์
-แล้วสะท้อนผ่าน link บน Linux/macOS/Windows native เป็นงาน Issue #9 ยังไม่มีผลตรวจรับข้าม OS
+และเครื่องมือภายนอกที่ skill ต้องใช้ [ผล Issue #9](cross-platform-validation.md) ตรวจ global install จริงครบ 23 skills และการเปลี่ยนไฟล์แล้วสะท้อนผ่าน link
+บน macOS กับ Windows native แล้ว พร้อม rerun/conflict และ copy warning บน macOS ส่วน Linux,
+permission fallback ของ Windows และการค้นพบ skills ภายใน agents ยังขาดหลักฐาน จึงยังไม่มีผลตรวจรับ MVP ครบทุก OS
 `install.sh` เพิ่มใน Issue #7 และ `install.ps1` เพิ่มใน Issue #8 ส่วนคำสั่ง status/update เป็นงาน Issue #10

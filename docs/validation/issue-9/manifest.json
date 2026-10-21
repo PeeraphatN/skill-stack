@@ -1,0 +1,45 @@
+{
+  "agents": ["codex", "pi", "hermes-agent"],
+  "skills": [
+    {
+      "name": "ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "installer": "npx-skills",
+      "skills": ["ponytail", "ponytail-audit", "ponytail-debt"]
+    },
+    {
+      "name": "no-ai-slop",
+      "repo": "petergyang/no-ai-slop",
+      "installer": "npx-skills",
+      "skills": ["no-ai-slop"]
+    },
+    {
+      "name": "mattpocock-skills",
+      "repo": "mattpocock/skills",
+      "installer": "npx-skills",
+      "skills": [
+        "code-review",
+        "codebase-design",
+        "domain-modeling",
+        "grill-with-docs",
+        "implement",
+        "improve-codebase-architecture",
+        "pr",
+        "research",
+        "retro",
+        "tdd",
+        "to-spec",
+        "to-tickets",
+        "triage",
+        "wayfinder",
+        "writing-for-agents"
+      ]
+    },
+    {
+      "name": "9arm-skills",
+      "repo": "thananon/9arm-skills",
+      "installer": "npx-skills",
+      "skills": ["debug-mantra", "post-mortem", "scrutinize", "management-talk"]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "rerunExit": 0,
+  "snapshotUnchanged": true,
+  "conflictExit": 1,
+  "conflictFilePreserved": true,
+  "restoredSnapshot": true,
+  "invalidManifestPS1Exit": 1,
+  "invalidManifestMessage": "Manifest failed: manifest: invalid JSON (Expected property name or '}' in JSON at position 1 (line 1 column 2))\n"
+}

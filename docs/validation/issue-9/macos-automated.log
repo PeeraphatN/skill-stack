@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: CLI loads its adjacent manifest from another working directory and exits nonzero with no npm
+ok 1 - CLI loads its adjacent manifest from another working directory and exits nonzero with no npm
+  ---
+  duration_ms: 30.244041
+  type: 'test'
+  ...
+# Subtest: CLI rejects its invalid manifest before starting prerequisites, including through a symlink
+ok 2 - CLI rejects its invalid manifest before starting prerequisites, including through a symlink
+  ---
+  duration_ms: 27.01825
+  type: 'test'
+  ...
+# Subtest: Windows npm/npx use JS entry points through Node even with spaces in their path
+ok 3 - Windows npm/npx use JS entry points through Node even with spaces in their path
+  ---
+  duration_ms: 1.926167
+  type: 'test'
+  ...
+# Subtest: process runner passes arguments literally and reports missing executables and timeout
+ok 4 - process runner passes arguments literally and reports missing executables and timeout
+  ---
+  duration_ms: 122.832291
+  type: 'test'
+  ...
+# Subtest: a timeout stops descendant processes before they can write destinations
+ok 5 - a timeout stops descendant processes before they can write destinations
+  ---
+  duration_ms: 1060.109917
+  type: 'test'
+  ...
+# Subtest: PowerShell wrapper delegates to its sibling installer and preserves the result
+ok 6 - PowerShell wrapper delegates to its sibling installer and preserves the result
+  ---
+  duration_ms: 2.344125
+  type: 'test'
+  ...
+# Subtest: shell wrapper runs its adjacent installer from another cwd and preserves arguments and status
+ok 7 - shell wrapper runs its adjacent installer from another cwd and preserves arguments and status
+  ---
+  duration_ms: 608.875709
+  type: 'test'
+  ...
+# Subtest: rejects the entire invalid manifest before executing any command
+ok 8 - rejects the entire invalid manifest before executing any command
+  ---
+  duration_ms: 4.040375
+  type: 'test'
+  ...
+# Subtest: missing prerequisites skip every entry without attempting installation
+ok 9 - missing prerequisites skip every entry without attempting installation
+  ---
+  duration_ms: 1.163583
+  type: 'test'
+  ...
+# Subtest: installs explicit skills and agents, verifies links, and skips a complete rerun
+ok 10 - installs explicit skills and agents, verifies links, and skips a complete rerun
+  ---
+  duration_ms: 9.61125
+  type: 'test'
+  ...
+# Subtest: continues after failed downloads and zero-exit incomplete installs; accepts verified copies
+ok 11 - continues after failed downloads and zero-exit incomplete installs; accepts verified copies
+  ---
+  duration_ms: 8.230541
+  type: 'test'
+  ...
+# Subtest: preserves conflicting files and unrelated skills while continuing safe entries
+ok 12 - preserves conflicting files and unrelated skills while continuing safe entries
+  ---
+  duration_ms: 5.444166
+  type: 'test'
+  ...
+# Subtest: honors HERMES_HOME and rejects a copy missing supporting files
+ok 13 - honors HERMES_HOME and rejects a copy missing supporting files
+  ---
+  duration_ms: 4.600791
+  type: 'test'
+  ...
+# Subtest: a missing npm/npx, wrong CLI version, or process error skips installation
+ok 14 - a missing npm/npx, wrong CLI version, or process error skips installation
+  ---
+  duration_ms: 2.861709
+  type: 'test'
+  ...
+# Subtest: reruns safely with a complete byte-identical copied fallback without overwriting it
+ok 15 - reruns safely with a complete byte-identical copied fallback without overwriting it
+  ---
+  duration_ms: 2.5
+  type: 'test'
+  ...
+# Subtest: wrong and dangling Hermes links never cause an overwrite
+ok 16 - wrong and dangling Hermes links never cause an overwrite
+  ---
+  duration_ms: 3.657875
+  type: 'test'
+  ...
+# Subtest: Windows requires taskkill before starting processes that may time out
+ok 17 - Windows requires taskkill before starting processes that may time out
+  ---
+  duration_ms: 0.642958
+  type: 'test'
+  ...
+# Subtest: validation CLI works from another directory and reports invalid input without installing
+ok 18 - validation CLI works from another directory and reports invalid input without installing
+  ---
+  duration_ms: 91.64375
+  type: 'test'
+  ...
+# Subtest: accepts an explicit public repository selection for supported agents
+ok 19 - accepts an explicit public repository selection for supported agents
+  ---
+  duration_ms: 0.695792
+  type: 'test'
+  ...
+# Subtest: rejects malformed JSON with a manifest location
+ok 20 - rejects malformed JSON with a manifest location
+  ---
+  duration_ms: 0.148084
+  type: 'test'
+  ...
+# Subtest: requires exactly the documented object fields and nonempty lists
+ok 21 - requires exactly the documented object fields and nonempty lists
+  ---
+  duration_ms: 0.810042
+  type: 'test'
+  ...
+# Subtest: rejects unsupported agents, installers, unsafe identifiers and sources
+ok 22 - rejects unsupported agents, installers, unsafe identifiers and sources
+  ---
+  duration_ms: 0.359709
+  type: 'test'
+  ...
+# Subtest: rejects repeated agents, entry names and destination names across all sources
+ok 23 - rejects repeated agents, entry names and destination names across all sources
+  ---
+  duration_ms: 0.133458
+  type: 'test'
+  ...
+# Subtest: allows extending public sources and using a supported subset of agents
+ok 24 - allows extending public sources and using a supported subset of agents
+  ---
+  duration_ms: 0.133209
+  type: 'test'
+  ...
+# Subtest: ships exactly the selected Issue \#5 MVP skills for all three agents
+ok 25 - ships exactly the selected Issue \#5 MVP skills for all three agents
+  ---
+  duration_ms: 2.716333
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1289.967458

@@ -1,0 +1,144 @@
+{
+  "powershell": "5.1.26100.9711",
+  "calls": [
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js",
+        "--version"
+      ],
+      "code": 0,
+      "stdout": "11.6.1"
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--version"
+      ],
+      "code": 0,
+      "stdout": "11.6.1"
+    },
+    {
+      "exe": "git",
+      "args": [
+        "--version"
+      ],
+      "code": 0,
+      "stdout": "git version 2.49.0.windows.1"
+    },
+    {
+      "exe": "taskkill.exe",
+      "args": [
+        "/?"
+      ],
+      "code": 0
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--yes",
+        "skills@1.7.2",
+        "--version"
+      ],
+      "code": 0,
+      "stdout": "1.7.2"
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "DietrichGebert/ponytail",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "ponytail",
+        "ponytail-audit",
+        "ponytail-debt",
+        "--yes"
+      ],
+      "code": 0
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "petergyang/no-ai-slop",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "no-ai-slop",
+        "--yes"
+      ],
+      "code": 0
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "mattpocock/skills",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "code-review",
+        "codebase-design",
+        "domain-modeling",
+        "grill-with-docs",
+        "implement",
+        "improve-codebase-architecture",
+        "pr",
+        "research",
+        "retro",
+        "tdd",
+        "to-spec",
+        "to-tickets",
+        "triage",
+        "wayfinder",
+        "writing-for-agents",
+        "--yes"
+      ],
+      "code": 0
+    },
+    {
+      "exe": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npx-cli.js",
+        "--yes",
+        "skills@1.7.2",
+        "add",
+        "thananon/9arm-skills",
+        "--global",
+        "--agent",
+        "codex",
+        "pi",
+        "hermes-agent",
+        "--skill",
+        "debug-mantra",
+        "post-mortem",
+        "scrutinize",
+        "management-talk",
+        "--yes"
+      ],
+      "code": 0
+    }
+  ]
+}

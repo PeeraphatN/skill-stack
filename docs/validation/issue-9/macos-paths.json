@@ -1,0 +1,191 @@
+{
+  "rows": [
+    {
+      "skill": "ponytail",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/ponytail",
+      "link": "../../.agents/skills/ponytail",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "ponytail-audit",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail-audit",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/ponytail-audit",
+      "link": "../../.agents/skills/ponytail-audit",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail-audit",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "ponytail-debt",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail-debt",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/ponytail-debt",
+      "link": "../../.agents/skills/ponytail-debt",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/ponytail-debt",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "no-ai-slop",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/no-ai-slop",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/no-ai-slop",
+      "link": "../../.agents/skills/no-ai-slop",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/no-ai-slop",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "code-review",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/code-review",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/code-review",
+      "link": "../../.agents/skills/code-review",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/code-review",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "codebase-design",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/codebase-design",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/codebase-design",
+      "link": "../../.agents/skills/codebase-design",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/codebase-design",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "domain-modeling",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/domain-modeling",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/domain-modeling",
+      "link": "../../.agents/skills/domain-modeling",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/domain-modeling",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "grill-with-docs",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/grill-with-docs",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/grill-with-docs",
+      "link": "../../.agents/skills/grill-with-docs",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/grill-with-docs",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "implement",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/implement",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/implement",
+      "link": "../../.agents/skills/implement",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/implement",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "improve-codebase-architecture",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/improve-codebase-architecture",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/improve-codebase-architecture",
+      "link": "../../.agents/skills/improve-codebase-architecture",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/improve-codebase-architecture",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "pr",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/pr",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/pr",
+      "link": "../../.agents/skills/pr",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/pr",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "research",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/research",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/research",
+      "link": "../../.agents/skills/research",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/research",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "retro",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/retro",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/retro",
+      "link": "../../.agents/skills/retro",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/retro",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "tdd",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/tdd",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/tdd",
+      "link": "../../.agents/skills/tdd",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/tdd",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "to-spec",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/to-spec",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/to-spec",
+      "link": "../../.agents/skills/to-spec",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/to-spec",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "to-tickets",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/to-tickets",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/to-tickets",
+      "link": "../../.agents/skills/to-tickets",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/to-tickets",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "triage",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/triage",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/triage",
+      "link": "../../.agents/skills/triage",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/triage",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "wayfinder",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/wayfinder",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/wayfinder",
+      "link": "../../.agents/skills/wayfinder",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/wayfinder",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "writing-for-agents",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/writing-for-agents",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/writing-for-agents",
+      "link": "../../.agents/skills/writing-for-agents",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/writing-for-agents",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "debug-mantra",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/debug-mantra",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/debug-mantra",
+      "link": "../../.agents/skills/debug-mantra",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/debug-mantra",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "post-mortem",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/post-mortem",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/post-mortem",
+      "link": "../../.agents/skills/post-mortem",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/post-mortem",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "scrutinize",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/scrutinize",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/scrutinize",
+      "link": "../../.agents/skills/scrutinize",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/scrutinize",
+      "reflection": "passed; marker removed"
+    },
+    {
+      "skill": "management-talk",
+      "source": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/management-talk",
+      "hermes": "$SMOKE_ROOT/home ไทย spaces/.hermes/skills/management-talk",
+      "link": "../../.agents/skills/management-talk",
+      "realpath": "$SMOKE_ROOT/home ไทย spaces/.agents/skills/management-talk",
+      "reflection": "passed; marker removed"
+    }
+  ],
+  "reruns": "node, sh, executable: exit 0; snapshot identical including unrelated sentinel",
+  "conflict": "exit 1; original file untouched; original isolated link restored",
+  "copy": "CLI --copy exit 0; real directory; installer rerun exit 0 with WARNING; not link-reflection acceptance"
+}
