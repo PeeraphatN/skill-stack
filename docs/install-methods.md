@@ -38,7 +38,9 @@ npx --yes skills@1.7.2 add mattpocock/skills --global --agent codex pi hermes-ag
 npx --yes skills@1.7.2 add thananon/9arm-skills --global --agent codex pi hermes-agent --skill debug-mantra post-mortem scrutinize management-talk --yes
 ```
 
-ตัวอย่าง Matt เลือกเพียง setup กับ tdd เพื่อแสดง syntax ไม่ได้ตัดสินว่าชุด MVP ต้องมีแค่สองตัวนี้ รายการที่จะติดตั้งจริงต้องกำหนดใน Issue #5 ส่วน 9arm เลือกชื่อครบ repo เพื่อแสดงวิธีแจกไฟล์ แต่ `qwen-agent` กับ `qwenchance` มี dependency ตามหัวข้อด้านล่าง การติดตั้งด้วยคำสั่งนี้ยังไม่ได้ทำให้พร้อมใช้ทันที
+คำสั่งด้านบนระบุเฉพาะชุด MVP ที่เลือกไว้ใน [manifest.json](../manifest.json) ตาม Issue #5
+ไม่ได้เลือกทุก skill ในแต่ละ repo โดยเฉพาะ `qwen-agent` กับ `qwenchance` ซึ่งมี dependency ตามหัวข้อด้านล่าง
+คำสั่งเหล่านี้ยังไม่ใช่หลักฐานว่าติดตั้งหรือใช้งาน workflow จริงครบแล้ว
 
 ## DietrichGebert/ponytail
 

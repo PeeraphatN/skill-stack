@@ -68,24 +68,17 @@ skill-stack/
 └── README.md
 ```
 
-## Manifest ที่วางแผนไว้
+## Manifest
 
-```json
-{
-  "agents": ["codex", "pi", "hermes-agent"],
-  "skills": [
-    {
-      "name": "no-ai-slop",
-      "repo": "petergyang/no-ai-slop",
-      "installer": "npx-skills"
-    },
-    {
-      "name": "9arm-skills",
-      "repo": "thananon/9arm-skills",
-      "installer": "npx-skills"
-    }
-  ]
-}
+[manifest.json](manifest.json) เลือก 23 skills จากสี่แหล่ง MVP ให้ `codex`, `pi` และ `hermes-agent`
+โดยระบุชื่อ skill ที่ต้องการจากแต่ละ repository อย่างชัดเจน อ่านรูปแบบและกติกาได้ที่
+[Manifest contract](docs/manifest.md)
+
+ตรวจ manifest โดยไม่ติดตั้ง และรันทดสอบด้วย Node.js >=22.20.0:
+
+```bash
+node scripts/validate-manifest.mjs
+node --test
 ```
 
 ## คำสั่งที่ต้องการรองรับ
@@ -123,6 +116,6 @@ npx github:<owner>/skill-stack
 
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
-อยู่ระหว่างวางแผน PRD/SRS ยังไม่มี installer ที่ใช้งานได้จริง
+มี manifest และ validator แล้ว ยังไม่มี installer ที่ใช้งานได้จริง
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
