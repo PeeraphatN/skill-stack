@@ -87,6 +87,17 @@ node --test
 node install.mjs
 ```
 
+บน Linux/macOS เรียกผ่าน shell wrapper ได้:
+
+```sh
+./install.sh
+# หรือ
+sh install.sh
+```
+
+ถ้าอยู่ directory อื่น ให้เรียก `sh "/path/to/skill-stack/install.sh"` โดยใช้ path ของ checkout จริง
+wrapper เรียก `install.mjs` ข้างตัวเองและคืน exit code เดียวกัน ต้องมี Node.js ใน PATH เช่นเดิม
+
 ในอนาคตอาจรองรับการเรียกผ่าน package โดยตรง:
 
 ```bash
@@ -122,6 +133,6 @@ installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต�
 
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
-มี manifest, validator และ `install.mjs` พร้อม automated tests แล้ว การติดตั้งจริงและการค้นพบ skills บน Linux/macOS/Windows native ยังต้องตรวจใน Issue #9; wrappers เป็นงานแยก
+มี manifest, validator, `install.mjs` และ `install.sh` พร้อม automated tests แล้ว การติดตั้งจริงและการค้นพบ skills บน Linux/macOS/Windows native ยังต้องตรวจใน Issue #9; PowerShell wrapper เป็นงาน Issue #8
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
