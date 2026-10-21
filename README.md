@@ -81,7 +81,7 @@ node scripts/validate-manifest.mjs
 node --test
 ```
 
-## คำสั่งที่ต้องการรองรับ
+## ติดตั้ง skills
 
 ```bash
 node install.mjs
@@ -93,12 +93,18 @@ node install.mjs
 npx github:<owner>/skill-stack
 ```
 
+เรียกด้วย absolute path จาก directory อื่นได้ สคริปต์หา manifest ข้างตัวเองเสมอ
+อ่านการตรวจผล การรันซ้ำ และวิธีแก้ปัญหาได้ที่ [คู่มือ installer](docs/installer.md)
+
 ## ข้อกำหนดเบื้องต้น
 
-- Node.js และ npm
-- `npx skills`
-- สิทธิ์สำหรับติดตั้ง global skills
-- GitHub access หากมี private skills ในอนาคต
+- Node.js >=22.20.0 พร้อม npm และ npx ใน PATH
+- Git ใน PATH และเชื่อมต่อ npm registry กับ public GitHub repositories ได้
+- สิทธิ์เขียน home และ agent destinations ของผู้ใช้ปัจจุบัน
+
+installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต้องติดตั้ง skills CLI ล่วงหน้า
+บน Windows ต้องเป็นการติดตั้ง Node.js/npm ที่มี `node_modules/npm/bin/npm-cli.js` และ `npx-cli.js`
+ข้าง Node หรือใน directory ของ PATH เพื่อเรียกผ่าน Node โดยไม่ใช้ shell
 
 ## Roadmap
 
@@ -116,6 +122,6 @@ npx github:<owner>/skill-stack
 
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
-มี manifest และ validator แล้ว ยังไม่มี installer ที่ใช้งานได้จริง
+มี manifest, validator และ `install.mjs` พร้อม automated tests แล้ว การติดตั้งจริงและการค้นพบ skills บน Linux/macOS/Windows native ยังต้องตรวจใน Issue #9; wrappers เป็นงานแยก
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
