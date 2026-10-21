@@ -73,6 +73,8 @@ installer ต้องตรวจ conflict ที่ระบุได้ก่
 
 ## 4. Manifest contract
 
+รูปแบบสุดท้ายจาก #5 อยู่ใน [Manifest contract](manifest.md) และ [manifest.json](../manifest.json)
+
 ส่วนนี้กำหนดข้อมูลและกติกาที่จำเป็น ส่วน schema และรูปแบบสุดท้ายเป็นงาน #5 ตัวอย่างด้านล่างเป็นข้อเสนอที่ขยายจาก README ไม่ใช่ไฟล์ `manifest.json` ที่พร้อมใช้งาน
 
 ```json
