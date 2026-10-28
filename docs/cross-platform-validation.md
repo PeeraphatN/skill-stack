@@ -170,6 +170,14 @@ $LASTEXITCODE
 
 หลัง snapshot ที่รายงานนี้ ทดสอบแล้ว ได้เพิ่ม `claude-code` เป็น agent เป้าหมาย โดย skills CLI `1.7.2` ใช้ `~/.claude/skills/` สำหรับ global install การทดสอบในเอกสารนี้ครอบคลุมเดิมเพียง Codex, Pi และ Hermes จึงไม่ถือเป็นหลักฐานการติดตั้งหรือ discovery ของ Claude Code ต้องรันทดสอบซ้ำบน OS เป้าหมายและตรวจ `~/.claude/skills/<skill>` เพิ่ม
 
+## Claude Code retest หลังเพิ่ม agent
+
+ทดสอบซ้ำบน macOS หลังเพิ่ม `claude-code` โดยใช้ temporary HOME และ npm cache แยกจากผู้ใช้จริง และเรียก installer จาก working directory อื่น การติดตั้งครั้งแรกได้ `linked` ครบ 4 entries จากนั้นรันซ้ำได้ `skipped: already installed and verified` ครบ 4 entries
+
+ตรวจ Claude Code destination ที่ `<temporary-home>/.claude/skills/` พบ symlink 23 ตัว ทุกตัวมี `SKILL.md` และ `realpath` ตรงกับ shared source ใน `<temporary-home>/.agents/skills/` จึงยืนยันได้ว่าไฟล์ skills ทั้ง 23 รายการถูกวางและ link ไปยัง source ถูกต้องใน macOS test นี้ การทดสอบนี้ไม่เปิด Claude Code เอง จึงยังไม่ยืนยัน skill discovery ภายใน runtime และไม่แทนการทดสอบ Linux/Windows รอบใหม่
+
+รอบแรกที่ใช้ temporary home ใต้ macOS `$TMPDIR` ล้มเหลวอย่างปลอดภัยก่อนติดตั้ง เพราะ path มี `/var` symlink และ preflight ปฏิเสธ linked parent ตามกติกาป้องกัน overwrite ย้าย test root ไปใต้ checkout ซึ่งไม่มี linked parent แล้วจึงผ่าน ไม่มีการแก้ source code เพื่อหลบ preflight และ temporary homes ถูกลบหลังทดสอบ
+
 ## หลักฐานที่ยังต้องเก็บเพื่อปิดเกณฑ์ SRS
 
 **AC-01/AC-06:** ต้องติดตั้ง manifest เต็มบน Linux native และบันทึกรุ่น OS/Node/npm/Git/CLI, stdout/stderr,
