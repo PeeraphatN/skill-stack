@@ -1,6 +1,6 @@
 # ผลตรวจข้ามแพลตฟอร์ม — Issue #9
 
-ตรวจเมื่อ 21 ตุลาคม 2026 จาก integration snapshot `bd72fd9` สำหรับ [Issue #9](https://github.com/PeeraphatN/skill-stack/issues/9)
+ตรวจเมื่อ 21 ตุลาคม 2026 จาก integration snapshot `bd72fd9` สำหรับ [Issue #9] ก่อน Claude Code ถูกเพิ่มเป็น agent เป้าหมายเพิ่มเติม(https://github.com/PeeraphatN/skill-stack/issues/9)
 โดยอ่าน [PRD](PRD.md), [SRS](SRS.md), [ผลสำรวจ upstream](install-methods.md), [manifest contract](manifest.md)
 และ [คู่มือ installer](installer.md) ก่อนรัน ไม่มีการแก้ installer, wrappers หรือ manifest ที่ส่งมอบ
 
@@ -165,6 +165,10 @@ $LASTEXITCODE
 เก็บผล home probe ก่อนเริ่ม ต้องตรง `$testHome` แล้วตรวจ link และ probe แบบเดียวกับ macOS
 หาก policy บล็อก wrapper ให้เก็บ error และใช้ Node entry point โดยไม่เปลี่ยน policy เมื่อจบปิดเฉพาะ shell ทดสอบนี้
 อย่านำ shell ที่เปลี่ยน USERPROFILE/HOME แล้วกลับไปใช้เป็น session ทำงานปกติ
+
+## ขอบเขตที่เปลี่ยนหลังการทดสอบ
+
+หลัง snapshot ที่รายงานนี้ ทดสอบแล้ว ได้เพิ่ม `claude-code` เป็น agent เป้าหมาย โดย skills CLI `1.7.2` ใช้ `~/.claude/skills/` สำหรับ global install การทดสอบในเอกสารนี้ครอบคลุมเดิมเพียง Codex, Pi และ Hermes จึงไม่ถือเป็นหลักฐานการติดตั้งหรือ discovery ของ Claude Code ต้องรันทดสอบซ้ำบน OS เป้าหมายและตรวจ `~/.claude/skills/<skill>` เพิ่ม
 
 ## หลักฐานที่ยังต้องเก็บเพื่อปิดเกณฑ์ SRS
 

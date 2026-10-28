@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 import { runInstaller } from '../install.mjs';
 
-async function fixture(t, manifest = { agents: ['codex', 'pi', 'hermes-agent'], skills: [
+async function fixture(t, manifest = { agents: ['codex', 'pi', 'hermes-agent', 'claude-code'], skills: [
   { name: 'first', repo: 'owner/first', installer: 'npx-skills', skills: ['first'] },
 ] }) {
   const home = await realpath(await mkdtemp(join(tmpdir(), 'installer ไทย ')));
@@ -46,6 +46,7 @@ test('missing prerequisites skip every entry without attempting installation', a
 async function installed(home, skill, copy = false) {
   const source = join(home, '.agents', 'skills', skill);
   const destination = join(home, '.hermes', 'skills', skill);
+  const claudeDestination = join(home, '.claude', 'skills', skill);
   await mkdir(source, { recursive: true });
   await writeFile(join(source, 'SKILL.md'), '# skill');
   await mkdir(join(home, '.hermes', 'skills'), { recursive: true });
@@ -53,6 +54,11 @@ async function installed(home, skill, copy = false) {
     await mkdir(destination, { recursive: true });
     await writeFile(join(destination, 'SKILL.md'), '# skill');
   } else await symlink(source, destination, 'junction');
+  await mkdir(join(home, '.claude', 'skills'), { recursive: true });
+  if (copy) {
+    await mkdir(claudeDestination, { recursive: true });
+    await writeFile(join(claudeDestination, 'SKILL.md'), '# skill');
+  } else await symlink(source, claudeDestination, 'junction');
 }
 
 test('installs explicit skills and agents, verifies links, and skips a complete rerun', async (t) => {
@@ -71,7 +77,7 @@ test('installs explicit skills and agents, verifies links, and skips a complete 
   assert.equal(result.results[0].status, 'linked');
   assert.deepEqual(f.calls.find(([, args]) => args.includes('add')), ['npx', [
     '--yes', 'skills@1.7.2', 'add', 'owner/first', '--global', '--agent',
-    'codex', 'pi', 'hermes-agent', '--skill', 'first', '--yes',
+    'codex', 'pi', 'hermes-agent', 'claude-code', '--skill', 'first', '--yes',
   ]]);
   const rerun = await runInstaller(f.options);
   assert.equal(rerun.exitCode, 0);
@@ -80,7 +86,7 @@ test('installs explicit skills and agents, verifies links, and skips a complete 
 });
 
 test('continues after failed downloads and zero-exit incomplete installs; accepts verified copies', async (t) => {
-  const f = await fixture(t, { agents: ['codex', 'pi', 'hermes-agent'], skills:
+  const f = await fixture(t, { agents: ['codex', 'pi', 'hermes-agent', 'claude-code'], skills:
     ['download', 'incomplete', 'copied'].map((name) => ({ name, repo: `owner/${name}`, installer: 'npx-skills', skills: [name] })) });
   const prerequisite = f.options.run;
   f.options.run = async (executable, args, options) => {
@@ -100,7 +106,7 @@ test('continues after failed downloads and zero-exit incomplete installs; accept
 });
 
 test('preserves conflicting files and unrelated skills while continuing safe entries', async (t) => {
-  const f = await fixture(t, { agents: ['codex', 'hermes-agent'], skills:
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills:
     ['conflict', 'safe'].map((name) => ({ name, repo: `owner/${name}`, installer: 'npx-skills', skills: [name] })) });
   const collision = join(f.home, '.hermes', 'skills', 'conflict');
   await mkdir(collision, { recursive: true });

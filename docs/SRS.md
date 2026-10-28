@@ -6,7 +6,7 @@
 
 ## 1. เป้าหมายและขอบเขต
 
-ผู้ใช้ที่ย้ายเครื่องหรือเตรียมเครื่องใหม่ต้องติดตั้ง skills ชุดเดียวกันให้ Codex, Pi และ Hermes ได้ด้วย `node install.mjs` จาก repository ที่ดาวน์โหลดแล้ว โดยอ่านรายการจาก `manifest.json` และเรียก `npx skills` เป็น installer กลาง
+ผู้ใช้ที่ย้ายเครื่องหรือเตรียมเครื่องใหม่ต้องติดตั้ง skills ชุดเดียวกันให้ Codex, Pi, Hermes และ Claude Code ได้ด้วย `node install.mjs` จาก repository ที่ดาวน์โหลดแล้ว โดยอ่านรายการจาก `manifest.json` และเรียก `npx skills` เป็น installer กลาง
 
 MVP ครอบคลุม Linux, macOS และ Windows แบบ native รวมถึง wrapper `install.sh` สำหรับ Linux/macOS และ `install.ps1` สำหรับ Windows โดย wrapper เป็นทางเลือกในการเรียก installer ตัวเดียวกัน ไม่ใช่เงื่อนไขของคำสั่งหลัก
 
@@ -35,7 +35,7 @@ Skill Stack รับผิดชอบอ่านและตรวจ manifes
 
 ### FR-01: ติดตั้งด้วยคำสั่งเดียว
 
-เมื่อผู้ใช้มี prerequisites ครบและดาวน์โหลด repository แล้ว `node install.mjs` ต้องเริ่มติดตั้งทั้งชุดโดยไม่ต้องแก้คำสั่งแยกตาม OS และไม่ต้องตอบเมนูเลือก skill หรือ agent ระหว่างทำงาน ผลต้องครอบคลุม agent ทั้งสามที่ระบุใน manifest ไม่ใช่เฉพาะ agent ที่ CLI ตรวจพบอัตโนมัติ
+เมื่อผู้ใช้มี prerequisites ครบและดาวน์โหลด repository แล้ว `node install.mjs` ต้องเริ่มติดตั้งทั้งชุดโดยไม่ต้องแก้คำสั่งแยกตาม OS และไม่ต้องตอบเมนูเลือก skill หรือ agent ระหว่างทำงาน ผลต้องครอบคลุม agents ทั้งสี่ที่ระบุใน manifest ไม่ใช่เฉพาะ agent ที่ CLI ตรวจพบอัตโนมัติ
 
 ### FR-02: ใช้ manifest เป็นแหล่งข้อมูลเดียว
 
@@ -79,7 +79,7 @@ installer ต้องตรวจ conflict ที่ระบุได้ก่
 
 ```json
 {
-  "agents": ["codex", "pi", "hermes"],
+  "agents": ["codex", "pi", "hermes-agent", "claude-code"],
   "skills": [
     {
       "name": "no-ai-slop",
@@ -91,7 +91,7 @@ installer ต้องตรวจ conflict ที่ระบุได้ก่
 }
 ```
 
-`agents` ต้องเป็นรายการที่ไม่ว่างและไม่มีค่าซ้ำ สำหรับ manifest ที่ส่งมอบใน MVP ต้องมี Codex, Pi และ Hermes ครบ ชื่อข้างต้นเป็น logical names จาก README การส่งชื่อไป CLI ต้องผ่าน mapping ที่ยืนยันใน #4 ไม่ส่งชื่อโดยเดา
+`agents` ต้องเป็นรายการที่ไม่ว่างและไม่มีค่าซ้ำ สำหรับ manifest ที่ส่งมอบใน MVP ต้องมี Codex, Pi, Hermes และ Claude Code ครบ ชื่อข้างต้นเป็น logical names จาก README การส่งชื่อไป CLI ต้องผ่าน mapping ที่ยืนยันใน #4 ไม่ส่งชื่อโดยเดา
 
 `skills` ระดับบนต้องเป็นรายการที่ไม่ว่าง แต่ละรายการต้องมี `name` สำหรับอ้างอิงใน log ที่ไม่ซ้ำ, `repo` แบบ `owner/repository`, `installer` และรายชื่อ skill ที่เลือกอย่างชัดเจน ไม่อนุญาต wildcard หรือเลือกทุก skill โดยปริยาย `skills` ภายในรายการในตัวอย่างคือแนวทางเสนอสำหรับการเลือกนี้ ชื่อจริงและวิธีระบุให้ CLI ต้องยืนยันก่อนใช้งาน
 
@@ -139,7 +139,7 @@ manifest.json -> install.mjs -> npx skills add (global)
                 agent destination -> source ร่วมกัน
 ```
 
-สำหรับแต่ละ skill ต้องมี global source ที่เข้าถึงได้ และ agent ทั้งสามต้องเห็น skill ครบ เมื่อใช้ symlink หรือ junction ต้องตรวจว่า link resolve ไปยัง source ที่ถูกต้องและไม่ dangling เมื่อ CLI ใช้ copy fallback ต้องตรวจว่าไฟล์ปลายทางครบและรายงานว่าเป็นสำเนา เมื่อ agent อ่าน global source โดยตรงต้องตรวจเส้นทางนั้นแทน
+สำหรับแต่ละ skill ต้องมี global source ที่เข้าถึงได้ และ agents ทั้งสี่ต้องเห็น skill ครบ เมื่อใช้ symlink หรือ junction ต้องตรวจว่า link resolve ไปยัง source ที่ถูกต้องและไม่ dangling เมื่อ CLI ใช้ copy fallback ต้องตรวจว่าไฟล์ปลายทางครบและรายงานว่าเป็นสำเนา เมื่อ agent อ่าน global source โดยตรงต้องตรวจเส้นทางนั้นแทน
 
 การตรวจรับต้องพิสูจน์ว่าการเปลี่ยนไฟล์ทดสอบใน source สะท้อนผ่าน destination โดยไม่ต้องคัดลอกซ้ำ และแก้ไฟล์ทดสอบกลับหลังตรวจเสร็จ ต้องตรวจการค้นพบ skill ของ agents ตามวิธีที่บันทึกไว้ใน #4 ด้วย การมี directory หรือ symlink อย่างเดียวไม่เพียงพอที่จะยืนยันว่าใช้งานกับ agent ได้
 
@@ -173,7 +173,7 @@ log ต้องอ่านได้ใน terminal ธรรมดาโดย
 
 ### AC-01: ติดตั้งชุด MVP บนเครื่องใหม่
 
-บน Linux, macOS และ Windows native ที่ prerequisites ครบ ให้รัน `node install.mjs` กับ manifest ที่มีรายการเลือกจากทั้งสี่ repositories ต้องไม่ถามเลือก skill/agent ระหว่างทำงาน, exit code เป็นศูนย์, global source มี `SKILL.md` ครบ และ Codex/Pi/Hermes ค้นพบ skill ที่เลือกครบตามหลักฐานจาก #4 (FR-01, FR-02, FR-04, FR-05, CP-01, NFR-02)
+บน Linux, macOS และ Windows native ที่ prerequisites ครบ ให้รัน `node install.mjs` กับ manifest ที่มีรายการเลือกจากทั้งสี่ repositories ต้องไม่ถามเลือก skill/agent ระหว่างทำงาน, exit code เป็นศูนย์, global source มี `SKILL.md` ครบ และ Codex/Pi/Hermes/Claude Code ค้นพบ skill ที่เลือกครบตามหลักฐานจาก #4 (FR-01, FR-02, FR-04, FR-05, CP-01, NFR-02)
 
 ### AC-02: ตรวจ manifest ก่อนติดตั้ง
 
@@ -197,7 +197,7 @@ log ต้องอ่านได้ใน terminal ธรรมดาโดย
 
 ### AC-07: Source ร่วมกันและเอกสารใช้งาน
 
-บนแต่ละ OS ตรวจ source และ destination ครบสาม agents ตามข้อ 6 รวมถึงการสะท้อนการแก้ไฟล์ทดสอบและการค้นพบ skill ต้องไม่มี dangling link หรือสำเนาที่ Skill Stack สร้างเอง README ของ implementation ต้องมี prerequisites, คำสั่งติดตั้ง, วิธีตรวจผล, พฤติกรรมติดตั้งซ้ำ และวิธีแก้ปัญหาที่ตรงกับผลทดสอบ (FR-04, FR-05, FR-07, NFR-03, NFR-05)
+บนแต่ละ OS ตรวจ source และ destination ครบสี่ agents ตามข้อ 6 รวมถึงการสะท้อนการแก้ไฟล์ทดสอบและการค้นพบ skill ต้องไม่มี dangling link หรือสำเนาที่ Skill Stack สร้างเอง README ของ implementation ต้องมี prerequisites, คำสั่งติดตั้ง, วิธีตรวจผล, พฤติกรรมติดตั้งซ้ำ และวิธีแก้ปัญหาที่ตรงกับผลทดสอบ (FR-04, FR-05, FR-07, NFR-03, NFR-05)
 
 ## 9. งานที่ต้องยืนยันก่อน implement และตรวจรับ
 

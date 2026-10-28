@@ -1,5 +1,5 @@
 {
-  "agents": ["codex", "pi", "hermes-agent"],
+  "agents": ["codex", "pi", "hermes-agent", "claude-code"],
   "skills": [
     {
       "name": "ponytail",

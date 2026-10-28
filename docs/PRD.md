@@ -17,9 +17,9 @@ Skill Stack จะเก็บรายการติดตั้งไว้�
 
 ## ผู้ใช้และสถานการณ์หลัก
 
-ผู้ใช้หลักคือนักพัฒนาที่ใช้ Codex, Pi หรือ Hermes และต้องการนำชุด skills ประจำไปใช้บนเครื่องใหม่
+ผู้ใช้หลักคือนักพัฒนาที่ใช้ Codex, Pi, Hermes หรือ Claude Code และต้องการนำชุด skills ประจำไปใช้บนเครื่องใหม่
 ทั้ง Linux, macOS และ Windows โดยมี Node.js, npm และสิทธิ์ติดตั้ง global skills พร้อมแล้ว
-MVP รองรับการใช้หลาย agents บนเครื่องเดียว รวมถึงการติดตั้งให้ครบทั้งสามตัว
+MVP รองรับการใช้หลาย agents บนเครื่องเดียว รวมถึงการติดตั้งให้ครบทั้งสี่ตัว
 
 ผู้ดูแลชุด skills คือผู้ที่เพิ่มหรือปรับรายการกลางใน repository เพื่อให้การติดตั้งครั้งถัดไปใช้รายการเดียวกัน
 ใน MVP ผู้ดูแลแก้ไฟล์ manifest โดยตรงได้ ยังไม่ต้องมีหน้าจอหรือคำสั่งจัดการรายการแยกต่างหาก
@@ -64,7 +64,7 @@ Skill Stack ไม่สร้างระบบจัดการ symlink ข�
 
 - ใช้ `manifest.json` ระบุแหล่ง skills และ agents เป้าหมาย โดยไม่ต้องแก้รายการซ้ำใน installer หรือ wrapper
 - มี `install.mjs` เป็นทางเข้าหลักข้ามแพลตฟอร์ม และ `install.sh` กับ `install.ps1` เป็น wrapper สำหรับ shell และ PowerShell
-- ติดตั้งแบบ global ผ่าน `npx skills add` ให้ Codex, Pi และ Hermes ใช้ชุด skills เดียวกัน โดย skills CLI จัดการ source และ symlink
+- ติดตั้งแบบ global ผ่าน `npx skills add` ให้ Codex, Pi, Hermes และ Claude Code ใช้ชุด skills เดียวกัน โดย skills CLI จัดการ source และ symlink
 - ติดตั้งซ้ำได้โดยไม่ทำให้ skills เดิมเสีย ไม่สร้างรายการซ้ำ และไม่ลบ skills ที่อยู่นอกรายการของ Skill Stack
 - แสดงผลว่าติดตั้งสำเร็จครบหรือไม่ พร้อมรายการที่ล้มเหลวและแนวทางแก้เบื้องต้นใน README
 
@@ -84,7 +84,7 @@ Skill Stack ไม่สร้างระบบจัดการ symlink ข�
 - คำสั่งตรวจสอบสถานะและ update แบบเฉพาะ เป็นงาน Issue #10; MVP มีผลสรุปจากการติดตั้งและวิธีตรวจสอบด้วยตนเองใน README
 - การเขียน ติดตั้ง หรือ publish custom skills รวมถึง private skills และการจัดการ credentials; MVP เตรียมให้เพิ่มรายการใน manifest ได้เท่านั้น
 - การติดตั้งผ่าน `npx github:<owner>/skill-stack`, หน้าจอจัดการ และระบบจัดการ symlink ของ Skill Stack เอง
-- การติดตั้ง Node.js, npm หรือ coding agents ให้ผู้ใช้ รวมถึงการรับรอง agents อื่นนอก Codex, Pi และ Hermes
+- การติดตั้ง Node.js, npm หรือ coding agents ให้ผู้ใช้ รวมถึงการรับรอง agents อื่นนอก Codex, Pi, Hermes และ Claude Code
 
 ## Acceptance criteria
 
@@ -105,7 +105,7 @@ Skill Stack ไม่สร้างระบบจัดการ symlink ข�
 ### AC-03: Agents พบ skills จาก global source
 
 หลังติดตั้งสำเร็จ ต้องตรวจพบ global source ตามโครงสร้าง `~/.agents/skills` ของ skills CLI
-และ symlink ที่ CLI จัดการให้ agents เป้าหมาย โดย Codex, Pi และ Hermes ต้องค้นพบ skills ตาม manifest ได้จริง
+และ symlink ที่ CLI จัดการให้ agents เป้าหมาย โดย Codex, Pi, Hermes และ Claude Code ต้องค้นพบ skills ตาม manifest ได้จริง
 บน Windows ให้ตรวจตำแหน่งเทียบเท่าภายใต้ home ของผู้ใช้ตามที่ CLI ใช้ ไม่อาศัยเพียงข้อความว่าสร้าง symlink สำเร็จ
 
 ### AC-04: ติดตั้งซ้ำไม่ทำให้ของเดิมเสีย

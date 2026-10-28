@@ -2,7 +2,7 @@
 
 สำรวจสำหรับ GitHub Issue #4 เมื่อ 18 ตุลาคม 2026 โดยอ่าน README, เอกสารติดตั้ง และ source ของ upstream สี่ repository ตาม MVP ใน README ของโปรเจกต์นี้ ลิงก์ที่มี commit SHA ระบุ snapshot ที่ตรวจ เพื่อให้ย้อนดูหลักฐานได้เมื่อ upstream เปลี่ยน
 
-คำว่า “ติดตั้งได้” ในเอกสารนี้หมายถึง installer พบและวางไฟล์ skill ได้ ส่วน “ใช้งานได้ครบ” ต้องรวมเครื่องมือ, hooks, extension และบริการที่เนื้อหา skill เรียกใช้ด้วย การมี `SKILL.md` อย่างเดียวไม่ใช่หลักฐานว่า workflow ทั้งหมดผ่านบน Codex, Pi และ Hermes แล้ว รอบนี้ไม่มีการติดตั้งลงโฟลเดอร์ agent จริงหรือทดสอบเรียก skill กับโมเดล
+คำว่า “ติดตั้งได้” ในเอกสารนี้หมายถึง installer พบและวางไฟล์ skill ได้ ส่วน “ใช้งานได้ครบ” ต้องรวมเครื่องมือ, hooks, extension และบริการที่เนื้อหา skill เรียกใช้ด้วย การมี `SKILL.md` อย่างเดียวไม่ใช่หลักฐานว่า workflow ทั้งหมดผ่านบน Codex, Pi, Hermes และ Claude Code แล้ว รอบนี้ไม่มีการติดตั้งลงโฟลเดอร์ agent จริงหรือทดสอบเรียก skill กับโมเดล
 
 ## ชื่อ agent และตำแหน่งติดตั้งที่ยืนยันได้
 
@@ -12,15 +12,16 @@
 
 1. **Codex → `codex`** ใช้ `.agents/skills/` ระดับ project และ `~/.agents/skills/` ระดับผู้ใช้ อ่านตำแหน่งกลางโดยตรง ไม่ต้องสร้างลิงก์ไป `~/.codex/skills/` เอกสาร [OpenAI: Where Codex loads local skills](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills) ยืนยันตำแหน่งนี้และการอ่าน symlink
 2. **Pi → `pi`** ใช้ `.agents/skills/` และ `~/.agents/skills/` เช่นเดียวกับ Codex ใน CLI รุ่นนี้ ไม่ต้องสร้างลิงก์ไป `~/.pi/agent/skills/` เอกสาร [Pi: Add it to Pi](https://github.com/earendil-works/pi/blob/482c1381a00d8d00bc81697e4a980c593db6803e/packages/coding-agent/docs/skills.md#add-it-to-pi) ยืนยันการอ่าน shared directories และการค้นหา `SKILL.md` แบบ recursive
-3. **Hermes → `hermes-agent`** ใช้ `.hermes/skills/` ระดับ project และ `~/.hermes/skills/` ระดับผู้ใช้ (หรือ `$HERMES_HOME/skills/` เมื่อกำหนด environment variable) ชื่อ `hermes` ไม่อยู่ใน registry ของ CLI นี้ และ CLI จะปฏิเสธ agent ที่ไม่รู้จัก ตาม [`src/add.ts`](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/src/add.ts) ส่วนคำสั่ง executable ของ host ยังเป็น `hermes` ตามเดิม
+3. **Hermes → `hermes-agent`** ใช้ `.hermes/skills/` ระดับ project และ `~/.hermes/skills/` ระดับผู้ใช้ (หรือ `$HERMES_HOME/skills/` เมื่อกำหนด environment variable) ชื่อ `hermes` ไม่อยู่ใน registry นี้ และ CLI จะปฏิเสธ agent ที่ไม่รู้จัก ตาม [`src/add.ts`](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/src/add.ts)
+4. **Claude Code → `claude-code`** ใช้ `.claude/skills/` ระดับ project และ `~/.claude/skills/` ระดับผู้ใช้ ตาม agent registry ของ `skills@1.7.2` (`skillsDir: .claude/skills`, `globalSkillsDir: ~/.claude/skills`).
 
-ใน global install แบบปกติ CLI คัดลอก skills ลง `~/.agents/skills/<ชื่อ>` และสร้าง symlink ให้ Hermes เท่านั้นสำหรับสามเป้าหมายนี้ Codex กับ Pi ใช้ไฟล์ชุดเดียวกันโดยตรง จึงต้องแก้ภาพใน README เดิมที่แสดงว่าทั้งสามตัวต้องมี symlink ตามพฤติกรรม [`src/installer.ts`](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/src/installer.ts) ถ้าสร้างลิงก์ไม่สำเร็จ CLI จะ fallback เป็น copy; บน Windows ใช้ junction เมื่อสร้างลิงก์ directory จึงยังรับรองไม่ได้ว่าจะมีไฟล์กลางชุดเดียวทุกกรณี `--copy` เลือกสำเนาแยกโดยตั้งใจได้
+ใน global install แบบปกติ CLI คัดลอก skills ลง `~/.agents/skills/<ชื่อ>` และสร้าง symlink ให้ Hermes และ Claude Code ส่วน Codex กับ Pi ใช้ global source โดยตรง จึงต้องแก้ภาพใน README เดิมที่แสดงว่าทั้งสามตัวต้องมี symlink ตามพฤติกรรม [`src/installer.ts`](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/src/installer.ts) ถ้าสร้างลิงก์ไม่สำเร็จ CLI จะ fallback เป็น copy; บน Windows ใช้ junction เมื่อสร้างลิงก์ directory จึงยังรับรองไม่ได้ว่าจะมีไฟล์กลางชุดเดียวทุกกรณี `--copy` เลือกสำเนาแยกโดยตั้งใจได้
 
 เอกสาร [Hermes Skills System](https://github.com/NousResearch/hermes-agent/blob/5f274827ffcdf5f0686e7c86d5667b8f8e26a6e6/website/docs/user-guide/features/skills.md) ระบุ primary directory เป็น `~/.hermes/skills/` และรองรับ external directories ที่ต้องตั้งค่าเพิ่ม สำหรับ project skills มีทั้ง `.hermes/skills/` และ `.agents/skills/` แต่ต้อง trust project ก่อน นี่ไม่ใช่หลักฐานว่า Hermes จะอ่าน **global** `~/.agents/skills/` โดยอัตโนมัติ MVP จึงควรให้ CLI จัดการลิงก์และไม่ต้องเพิ่ม external_dirs เอง ทั้งนี้แต่ละ Hermes profile มี home ของตัวเอง ต้องส่ง `HERMES_HOME` ให้ตรง profile ที่จะใช้
 
-## คำสั่งกลางสำหรับสาม agent
+## คำสั่งกลางสำหรับสี่ agents
 
-ตัวเลือก `--global`, `--agent`, `--skill`, `--list`, `--yes` อ้างอิงจาก [skills CLI README](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/README.md#options) ใช้ `--list` เพื่อตรวจชื่อก่อน และระบุ agent ทั้งสามให้ชัดเพื่อไม่พึ่งการตรวจหาโปรแกรมที่ติดตั้งอยู่:
+ตัวเลือก `--global`, `--agent`, `--skill`, `--list`, `--yes` อ้างอิงจาก [skills CLI README](https://github.com/vercel-labs/skills/blob/671e8c320810d36fed80fac5f1a2c1bf7e82d812/README.md#options) ใช้ `--list` เพื่อตรวจชื่อก่อน และระบุ agents ทั้งสี่ให้ชัดเพื่อไม่พึ่งการตรวจหาโปรแกรมที่ติดตั้งอยู่:
 
 ```bash
 npx --yes skills@1.7.2 add DietrichGebert/ponytail --list
@@ -32,10 +33,10 @@ npx --yes skills@1.7.2 add thananon/9arm-skills --list
 คำสั่งติดตั้งตัวอย่างที่นำไปใช้ต่อได้ด้านล่าง **ยังไม่ได้รันติดตั้งจริง** `--yes` หน้าชื่อ package ตอบรับ npm ส่วนท้ายตอบรับ skills CLI; `--skill` เลือกจากชื่อใน frontmatter ไม่ใช่ชื่อ repo:
 
 ```bash
-npx --yes skills@1.7.2 add DietrichGebert/ponytail --global --agent codex pi hermes-agent --skill ponytail ponytail-audit ponytail-debt --yes
-npx --yes skills@1.7.2 add petergyang/no-ai-slop --global --agent codex pi hermes-agent --skill no-ai-slop --yes
-npx --yes skills@1.7.2 add mattpocock/skills --global --agent codex pi hermes-agent --skill code-review codebase-design domain-modeling grill-with-docs implement improve-codebase-architecture pr research retro tdd to-spec to-tickets triage wayfinder writing-for-agents --yes
-npx --yes skills@1.7.2 add thananon/9arm-skills --global --agent codex pi hermes-agent --skill debug-mantra post-mortem scrutinize management-talk --yes
+npx --yes skills@1.7.2 add DietrichGebert/ponytail --global --agent codex pi hermes-agent claude-code --skill ponytail ponytail-audit ponytail-debt --yes
+npx --yes skills@1.7.2 add petergyang/no-ai-slop --global --agent codex pi hermes-agent claude-code --skill no-ai-slop --yes
+npx --yes skills@1.7.2 add mattpocock/skills --global --agent codex pi hermes-agent claude-code --skill code-review codebase-design domain-modeling grill-with-docs implement improve-codebase-architecture pr research retro tdd to-spec to-tickets triage wayfinder writing-for-agents --yes
+npx --yes skills@1.7.2 add thananon/9arm-skills --global --agent codex pi hermes-agent claude-code --skill debug-mantra post-mortem scrutinize management-talk --yes
 ```
 
 คำสั่งด้านบนระบุเฉพาะชุด MVP ที่เลือกไว้ใน [manifest.json](../manifest.json) ตาม Issue #5
@@ -54,9 +55,9 @@ npx skills add DietrichGebert/ponytail
 
 เอกสารเดียวกันระบุให้เลือก agent ด้วย `--agent`, เลือกทั้งหกด้วย `--skill '*'` และใช้ `--global` เมื่อต้องการติดตั้งระดับผู้ใช้ วิธีนี้คัดลอกเฉพาะ skills ไม่ติดตั้งระบบเปิดใช้อัตโนมัติทุก session, lifecycle hooks หรือ extension ของแต่ละ agent ถ้าต้องการพฤติกรรมครบให้ใช้ native install หรือเพิ่ม `AGENTS.md` ตาม upstream โดยพิจารณาเนื้อหาเดิมของโปรเจกต์ก่อน
 
-### Codex, Pi และ Hermes
+### Codex, Pi, Hermes และ Claude Code
 
-Upstream มี adapter สำหรับทั้งสามตัวโดยตรง ตาม [`INSTALL.md`](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/INSTALL.md) และ [`docs/agent-portability.md`](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/docs/agent-portability.md) คำสั่งเหล่านี้เป็น native install ที่แยกจากแนวทาง skills-only ของ MVP:
+Upstream มี adapter สำหรับ Codex, Pi และ Hermes โดยตรง ตาม [`INSTALL.md`](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/INSTALL.md) และ [`docs/agent-portability.md`](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/docs/agent-portability.md) คำสั่งเหล่านี้เป็น native install ที่แยกจากแนวทาง skills-only ของ MVP:
 
 ```bash
 # Codex: จาก terminal
@@ -123,7 +124,7 @@ npx skills@latest add mattpocock/skills -a <agent>
 
 ผลรัน `skills@1.7.2 add <local-clone> --list` พบครบทั้ง 38 ชื่อ รวม misc และ in-progress ด้วย จึงยืนยันได้ว่า discovery ไม่ได้คัดเฉพาะชุดหลักของ README การกำหนด manifest ใน issue ถัดไปต้องเลือกชื่อให้ชัด โดยเฉพาะ drafts และ skill ที่ชื่อระบุ host เช่น `git-guardrails-claude-code`
 
-### Codex, Pi และ Hermes
+### Codex, Pi, Hermes และ Claude Code
 
 Codex มีคำสั่ง native plugin ชัดเจน; Pi มีตัวอย่าง `-a pi` ใน README; Hermes ไม่ถูกเอ่ยเฉพาะชื่อ จึงยืนยันได้เพียงแนวทางติดตั้งสำหรับ agent อื่นผ่าน skills CLI ตามชื่อ target ที่ CLI รองรับ ไม่ได้มีผลทดสอบ workflow ของ Hermes ใน README นี้
 

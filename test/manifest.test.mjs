@@ -4,7 +4,7 @@ import { parseManifest, validateManifest } from '../lib/manifest.mjs';
 
 function example() {
   return {
-    agents: ['codex', 'pi', 'hermes-agent'],
+    agents: ['codex', 'pi', 'hermes-agent', 'claude-code'],
     skills: [{
       name: 'example', repo: 'someone/public-skills', installer: 'npx-skills',
       skills: ['example-skill'],
@@ -110,10 +110,10 @@ test('allows extending public sources and using a supported subset of agents', (
   assert.deepEqual(parseManifest(JSON.stringify(manifest)), manifest);
 });
 
-test('ships exactly the selected Issue #5 MVP skills for all three agents', async () => {
+test('ships exactly the selected Issue #5 MVP skills for all four agents', async () => {
   const { readFile } = await import('node:fs/promises');
   const manifest = parseManifest(await readFile(new URL('../manifest.json', import.meta.url), 'utf8'));
-  assert.deepEqual(manifest.agents, ['codex', 'pi', 'hermes-agent']);
+  assert.deepEqual(manifest.agents, ['codex', 'pi', 'hermes-agent', 'claude-code']);
   // Expected selection from the ticket, independently of validator implementation.
   assert.deepEqual(manifest.skills.map(({ repo, skills }) => [repo, skills]), [
     ['DietrichGebert/ponytail', ['ponytail', 'ponytail-audit', 'ponytail-debt']],

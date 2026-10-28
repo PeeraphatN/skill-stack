@@ -10,9 +10,9 @@
 ไฟล์ต้องเป็น JSON object ที่มีสอง field เท่านั้น คือ `agents` และ `skills` ไม่มี schema version
 สำหรับ MVP ดังนั้น `version`, `schemaVersion` หรือ field อื่นที่ไม่ได้ระบุจะถูกปฏิเสธ ไม่เดารุ่นหรือข้าม field เงียบ ๆ
 
-`agents` เป็น array ที่ไม่ว่างและไม่มีค่าซ้ำ ใช้ CLI identifiers โดยตรง ได้แก่ `codex`, `pi`
-และ `hermes-agent` เท่านั้น ไม่รับ alias `hermes` จึงไม่ต้องมี mapping อีกชุดใน installer
-manifest ที่ส่งมอบเลือกครบทั้งสาม ส่วน contract ยอมให้ผู้ดูแลเลือกรายการย่อยที่ไม่ว่างได้
+`agents` เป็น array ที่ไม่ว่างและไม่มีค่าซ้ำ ใช้ CLI identifiers โดยตรง ได้แก่ `codex`, `pi`,
+`hermes-agent` และ `claude-code` เท่านั้น ไม่รับ alias `hermes` จึงไม่ต้องมี mapping อีกชุดใน installer
+manifest ที่ส่งมอบเลือกครบทั้งสี่ ส่วน contract ยอมให้ผู้ดูแลเลือกรายการย่อยที่ไม่ว่างได้
 
 `skills` ระดับบนเป็น array ของรายการ source ที่ไม่ว่าง ลำดับใน array คือลำดับที่ installer ต้องประมวลผล
 แต่ละรายการต้องมี field ต่อไปนี้ครบและห้ามมี field เพิ่ม:

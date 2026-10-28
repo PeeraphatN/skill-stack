@@ -2,9 +2,9 @@
 
 ศูนย์รวมสำหรับติดตั้งและจัดการ skills ที่ใช้กับ coding agents หลายตัวบนเครื่องใหม่
 
-เป้าหมายคือให้ติดตั้ง skills ชุดเดียวกันบน **Codex, Pi และ Hermes** ได้ง่าย โดยใช้ `npx skills` เป็น installer กลาง และให้ระบบจัดการ source กับ symlink ผ่าน `~/.agents/skills` ตามมาตรฐานของ skills CLI
+เป้าหมายคือให้ติดตั้ง skills ชุดเดียวกันบน **Codex, Pi, Hermes และ Claude Code** ได้ง่าย โดยใช้ `npx skills` เป็น installer กลาง และให้ระบบจัดการ source กับ symlink ผ่าน `~/.agents/skills` ตามมาตรฐานของ skills CLI
 
-ผลสำรวจสำหรับ [Issue #4](https://github.com/PeeraphatN/skill-stack/issues/4) อยู่ใน [วิธีติดตั้งและความเข้ากันได้ของ skills MVP](docs/install-methods.md) พร้อมคำสั่ง ชื่อ skills และหลักฐาน upstream โดย CLI รุ่นที่ตรวจใช้ชื่อ agent `codex`, `pi` และ `hermes-agent` ส่วน Codex กับ Pi อ่าน `~/.agents/skills` โดยตรง ไม่ต้องมี symlink แยก
+ผลสำรวจสำหรับ [Issue #4](https://github.com/PeeraphatN/skill-stack/issues/4) อยู่ใน [วิธีติดตั้งและความเข้ากันได้ของ skills MVP](docs/install-methods.md) พร้อมคำสั่ง ชื่อ skills และหลักฐาน upstream โดย CLI รุ่นที่ตรวจรองรับ `codex`, `pi`, `hermes-agent` และ `claude-code` Codex/Pi อ่าน `~/.agents/skills` โดยตรง, Hermes ใช้ `~/.hermes/skills` และ Claude Code ใช้ `~/.claude/skills`
 
 ## ปัญหา
 
@@ -14,7 +14,7 @@
 
 - ติดตั้ง skills ที่ใช้งานประจำด้วยคำสั่งเดียว
 - รองรับ Linux, macOS และ Windows
-- ใช้งานกับ Codex, Pi และ Hermes เป็นหลัก
+- ใช้งานกับ Codex, Pi, Hermes และ Claude Code เป็นหลัก
 - เก็บรายการ skills ไว้ใน manifest เดียว
 - ใช้ symlink ที่ skills CLI จัดการให้
 - เพิ่ม custom skills ของตัวเองได้ในอนาคต
@@ -70,7 +70,7 @@ skill-stack/
 
 ## Manifest
 
-[manifest.json](manifest.json) เลือก 23 skills จากสี่แหล่ง MVP ให้ `codex`, `pi` และ `hermes-agent`
+[manifest.json](manifest.json) เลือก 23 skills จากสี่แหล่ง MVP ให้ `codex`, `pi`, `hermes-agent` และ `claude-code`
 โดยระบุชื่อ skill ที่ต้องการจากแต่ละ repository อย่างชัดเจน อ่านรูปแบบและกติกาได้ที่
 [Manifest contract](docs/manifest.md)
 
@@ -147,7 +147,7 @@ installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต�
 มี manifest, validator, `install.mjs`, `install.sh` และ `install.ps1` พร้อม automated tests แล้ว
 ผล [Issue #9: cross-platform validation](docs/cross-platform-validation.md) ยืนยันการติดตั้งจริงครบ 23 skills
 และ source/link reflection บน macOS กับ Windows native ใน temporary homes แล้ว รวมถึง shell/PowerShell wrapper
-รันซ้ำและรายงาน failure ตาม exit code ส่วน Linux และการค้นพบ skills ภายใน Codex/Pi/Hermes ยังไม่ผ่านการตรวจรับ
+รันซ้ำและรายงาน failure ตาม exit code การทดสอบชุดเดิมยังไม่ครอบคลุม Claude Code ที่เพิ่มภายหลัง และยังขาด Linux native กับการยืนยัน discovery ภายใน agents
 จึงยังไม่ถือว่า MVP ผ่านครบสาม OS
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
