@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { parseManifest } from './lib/manifest.mjs';
 import { destinations, preflight, verify } from './lib/destinations.mjs';
 import { npmCommands, runProcess } from './lib/process.mjs';
+import { runStatus } from './lib/status.mjs';
+import { runUpdate } from './lib/update.mjs';
 
 export async function runInstaller({ manifestPath = new URL('./manifest.json', import.meta.url), log = console.log, errorLog = console.error,
   home = homedir(), env = process.env, nodeVersion = process.versions.node, run = runProcess,
@@ -83,5 +85,12 @@ export async function runInstaller({ manifestPath = new URL('./manifest.json', i
 
 const invokedPath = process.argv[1] ? await realpath(resolve(process.argv[1])).catch(() => null) : null;
 if (invokedPath === fileURLToPath(import.meta.url)) {
-  process.exitCode = (await runInstaller()).exitCode;
+  const [command, ...args] = process.argv.slice(2);
+  if (!command || command === 'install') process.exitCode = (await runInstaller()).exitCode;
+  else if (command === 'status' && args.length === 0) process.exitCode = (await runStatus()).exitCode;
+  else if (command === 'update' && args.length === 0) process.exitCode = (await runUpdate()).exitCode;
+  else {
+    console.error(`Unknown command or arguments: ${[command, ...args].join(' ')}\nUsage: node install.mjs [install|status|update]`);
+    process.exitCode = 2;
+  }
 }

@@ -29,7 +29,7 @@ MVP จะเริ่มจาก skills ที่ติดตั้งผ่�
 - [mattpocock/skills](https://github.com/mattpocock/skills)
 - [thananon/9arm-skills](https://github.com/thananon/9arm-skills)
 
-รายการที่เกี่ยวข้องแต่จะเพิ่มในระยะถัดไป เพราะใช้วิธีติดตั้งเฉพาะ:
+เพิ่มอีกสี่แหล่งใน Issue #11 โดยติดตั้งเฉพาะ skills ที่เลือกผ่าน `npx skills` ไม่รัน native plugin, hook หรือ setup ของ upstream อัตโนมัติ ดูข้อจำกัดแต่ละแหล่งใน [คู่มือ adapters](docs/adapters.md):
 
 - [trailhq/Trail-Code](https://github.com/trailhq/Trail-Code)
 - [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)
@@ -70,9 +70,9 @@ skill-stack/
 
 ## Manifest
 
-[manifest.json](manifest.json) เลือก 23 skills จากสี่แหล่ง MVP ให้ `codex`, `pi`, `hermes-agent` และ `claude-code`
+[manifest.json](manifest.json) เลือก 29 skills จากแปดแหล่งให้ `codex`, `pi`, `hermes-agent` และ `claude-code`
 โดยระบุชื่อ skill ที่ต้องการจากแต่ละ repository อย่างชัดเจน อ่านรูปแบบและกติกาได้ที่
-[Manifest contract](docs/manifest.md)
+[Manifest contract](docs/manifest.md) และข้อจำกัดของแหล่งที่เพิ่มใน [คู่มือ adapters](docs/adapters.md)
 
 ตรวจ manifest โดยไม่ติดตั้ง และรันทดสอบด้วย Node.js >=22.20.0:
 
@@ -116,6 +116,19 @@ npx github:<owner>/skill-stack
 ```
 
 เรียกด้วย absolute path จาก directory อื่นได้ สคริปต์หา manifest ข้างตัวเองเสมอ
+
+ตรวจสถานะ skills ใน manifest โดยไม่ดาวน์โหลดหรือติดตั้ง:
+
+```bash
+node install.mjs status
+```
+
+อัปเดตเฉพาะ skills ใน manifest ที่ติดตั้งครบแล้ว:
+
+```bash
+node install.mjs update
+```
+
 อ่านการตรวจผล การรันซ้ำ และวิธีแก้ปัญหาได้ที่ [คู่มือ installer](docs/installer.md)
 
 ## ข้อกำหนดเบื้องต้น
@@ -130,24 +143,18 @@ installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต�
 
 ## Roadmap
 
-1. สรุป install method และชื่อ agent ที่รองรับจริง
-2. เพิ่ม `manifest.json`
-3. เขียน `install.mjs` สำหรับ MVP
-4. เพิ่ม wrapper สำหรับ shell และ PowerShell
-5. ทดสอบบน macOS, Linux และ Windows
-6. เพิ่มคำสั่งตรวจสอบสถานะและ update
-7. เพิ่ม Trail-Code และ skills ที่ใช้ installer เฉพาะ
-8. เพิ่ม custom skills ส่วนตัว
-9. publish custom skills ให้ติดตั้งผ่าน `npx skills` ได้
+1. สรุป install method และชื่อ agent ที่รองรับจริง — เสร็จ
+2. เพิ่ม `manifest.json` และ `install.mjs` — เสร็จ
+3. เพิ่ม wrapper สำหรับ shell และ PowerShell — เสร็จ
+4. เพิ่มคำสั่งตรวจสอบสถานะและ update (#10) — เสร็จ
+5. เพิ่ม selected skills จาก Trail-Code และอีกสามแหล่ง (#11) — เสร็จแบบ skills-only
+6. ทดสอบติดตั้งจริงครบสาม OS และยืนยันการค้นพบใน agents (#9) — ยังไม่เสร็จ
+7. เพิ่ม custom skills ส่วนตัวและ publish ผ่าน `npx skills` — ยังไม่เริ่ม
 
 ## สถานะ
 
 ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
 
-มี manifest, validator, `install.mjs`, `install.sh` และ `install.ps1` พร้อม automated tests แล้ว
-ผล [Issue #9: cross-platform validation](docs/cross-platform-validation.md) ยืนยันการติดตั้งจริงครบ 23 skills
-และ source/link reflection บน macOS กับ Windows native ใน temporary homes แล้ว รวมถึง shell/PowerShell wrapper
-รันซ้ำและรายงาน failure ตาม exit code การทดสอบชุดเดิมยังไม่ครอบคลุม Claude Code ที่เพิ่มภายหลัง และยังขาด Linux native กับการยืนยัน discovery ภายใน agents
-จึงยังไม่ถือว่า MVP ผ่านครบสาม OS
+มี manifest, validator, installer และคำสั่ง `status`/`update` พร้อม automated tests แล้ว ผล [Issue #9: cross-platform validation](docs/cross-platform-validation.md) เป็นหลักฐานของชุดเดิม 23 skills บน macOS และ Windows; ยังไม่มีผลติดตั้งจริงสำหรับ manifest ปัจจุบัน 29 skills, Linux native หรือการยืนยัน discovery ภายใน agents จึงยังไม่ถือว่าตรวจรับครบสาม OS.
 
 ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)

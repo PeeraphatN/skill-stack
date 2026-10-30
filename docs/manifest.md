@@ -5,6 +5,8 @@
 [ผลสำรวจวิธีติดตั้ง](install-methods.md) รายการติดตั้งจริงมีแห่งเดียวคือ [manifest.json](../manifest.json)
 ส่วนเอกสารนี้อธิบายกติกา ไม่ใช่รายการติดตั้งอีกชุด
 
+หมายเหตุ: manifest ปัจจุบันมี 29 skills จากแปด repositories หลังทำ Issue #11 โดยสี่แหล่งที่เพิ่มใช้การแจกจ่ายแบบ skills-only ผ่าน `npx skills`; ข้อจำกัดอยู่ใน [คู่มือ adapters](adapters.md)
+
 ## รูปแบบข้อมูล
 
 ไฟล์ต้องเป็น JSON object ที่มีสอง field เท่านั้น คือ `agents` และ `skills` ไม่มี schema version
@@ -34,7 +36,7 @@ manifest ที่ส่งมอบเลือกครบทั้งสี�
 repository เดียวปรากฏหลายรายการได้เมื่อ `name` และชื่อ skill ที่เลือกไม่ซ้ำ
 
 เพิ่ม public source ในอนาคตได้ด้วยรายการรูปแบบเดียวกัน ไม่ต้องเพิ่มรายชื่อ repository หรือ skill ใน validator
-ชุดที่เลือกสำหรับ MVP ไม่ได้รวม skills อื่นใน upstream โดยอัตโนมัติ
+ชุดที่เลือกไม่ได้รวม skills อื่นใน upstream โดยอัตโนมัติ รวมถึง skills ที่เพิ่มใน Issue #11
 
 ## วิธีตรวจและนำไปใช้
 

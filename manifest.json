@@ -40,6 +40,30 @@
       "repo": "thananon/9arm-skills",
       "installer": "npx-skills",
       "skills": ["debug-mantra", "post-mortem", "scrutinize", "management-talk"]
+    },
+    {
+      "name": "trail-code",
+      "repo": "trailhq/Trail-Code",
+      "installer": "npx-skills",
+      "skills": ["graft"]
+    },
+    {
+      "name": "i-have-adhd",
+      "repo": "ayghri/i-have-adhd",
+      "installer": "npx-skills",
+      "skills": ["i-have-adhd"]
+    },
+    {
+      "name": "obsidian-wiki",
+      "repo": "Ar9av/obsidian-wiki",
+      "installer": "npx-skills",
+      "skills": ["wiki-setup", "wiki-capture", "wiki-query"]
+    },
+    {
+      "name": "karpathy-skills",
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "installer": "npx-skills",
+      "skills": ["karpathy-guidelines"]
     }
   ]
 }

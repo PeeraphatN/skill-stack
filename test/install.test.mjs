@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import { runInstaller } from '../install.mjs';
+import { runStatus } from '../lib/status.mjs';
+import { runUpdate } from '../lib/update.mjs';
 
 async function fixture(t, manifest = { agents: ['codex', 'pi', 'hermes-agent', 'claude-code'], skills: [
   { name: 'first', repo: 'owner/first', installer: 'npx-skills', skills: ['first'] },
@@ -194,6 +196,102 @@ test('wrong and dangling Hermes links never cause an overwrite', async (t) => {
     assert.equal(f.calls.filter(([, args]) => args.includes('add')).length, 0);
     if (!dangling) assert.equal(await readFile(join(other, 'SKILL.md'), 'utf8'), 'other owner');
   }
+});
+
+test('status reports each selected skill without running installer prerequisites', async (t) => {
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills: [
+    { name: 'present', repo: 'owner/present', installer: 'npx-skills', skills: ['ready'] },
+    { name: 'absent', repo: 'owner/absent', installer: 'npx-skills', skills: ['missing'] },
+  ] });
+  await installed(f.home, 'ready');
+  const result = await runStatus(f.options);
+  assert.equal(result.exitCode, 1);
+  assert.deepEqual(result.results.map(({ name, status }) => [name, status]), [
+    ['present/ready', 'installed'], ['absent/missing', 'missing'],
+  ]);
+  assert.deepEqual(f.calls, []);
+});
+
+test('update targets only installed manifest skills and verifies updated destinations', async (t) => {
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills: [
+    { name: 'first-source', repo: 'owner/first', installer: 'npx-skills', skills: ['ready', 'absent'] },
+    { name: 'second-source', repo: 'owner/second', installer: 'npx-skills', skills: ['other'] },
+  ] });
+  await installed(f.home, 'ready');
+  await installed(f.home, 'absent');
+  await installed(f.home, 'other');
+  const prerequisite = f.options.run;
+  f.options.run = async (executable, args, options) => {
+    if (args.includes('update')) {
+      f.calls.push([executable, args]);
+      return { code: 0, stdout: 'updated', stderr: '' };
+    }
+    return prerequisite(executable, args, options);
+  };
+  const result = await runUpdate(f.options);
+  assert.equal(result.exitCode, 0);
+  assert.deepEqual(f.calls.filter(([, args]) => args.includes('update')).map(([, args]) => args), [
+    ['--yes', 'skills@1.7.2', 'update', 'ready', 'absent', '--global', '--yes'],
+    ['--yes', 'skills@1.7.2', 'update', 'other', '--global', '--yes'],
+  ]);
+  assert.deepEqual(result.results.map(({ status }) => status), ['updated', 'updated', 'updated']);
+});
+
+test('update reports post-update verification failures per skill and continues', async (t) => {
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills: [
+    { name: 'source', repo: 'owner/source', installer: 'npx-skills', skills: ['ready', 'broken'] },
+  ] });
+  await installed(f.home, 'ready');
+  await installed(f.home, 'broken');
+  const prerequisite = f.options.run;
+  f.options.run = async (executable, args, options) => {
+    if (!args.includes('update')) return prerequisite(executable, args, options);
+    await rm(join(f.home, '.agents', 'skills', 'broken'), { recursive: true });
+    return { code: 0, stdout: '', stderr: '' };
+  };
+  const result = await runUpdate(f.options);
+  assert.equal(result.exitCode, 1);
+  assert.deepEqual(result.results.map(({ status }) => status), ['updated', 'failed']);
+  assert.match(result.results[1].detail, /post-update verification failed/);
+});
+
+test('update does not claim success when CLI has no source metadata and continues', async (t) => {
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills: [
+    { name: 'untracked', repo: 'owner/untracked', installer: 'npx-skills', skills: ['first'] },
+    { name: 'tracked', repo: 'owner/tracked', installer: 'npx-skills', skills: ['second'] },
+  ] });
+  await installed(f.home, 'first');
+  await installed(f.home, 'second');
+  const prerequisite = f.options.run;
+  f.options.run = async (executable, args, options) => {
+    if (!args.includes('update')) return prerequisite(executable, args, options);
+    return args.includes('first')
+      ? { code: 0, stdout: 'No installed skills found matching: first', stderr: '' }
+      : { code: 0, stdout: '✓ All global skills are up to date', stderr: '' };
+  };
+  const result = await runUpdate(f.options);
+  assert.equal(result.exitCode, 1);
+  assert.deepEqual(result.results.map(({ status }) => status), ['failed', 'updated']);
+  assert.match(result.results[0].detail, /could not update/);
+});
+
+test('update refuses conflicting destinations and reports CLI failures per entry', async (t) => {
+  const f = await fixture(t, { agents: ['codex', 'hermes-agent', 'claude-code'], skills: [
+    { name: 'conflict', repo: 'owner/conflict', installer: 'npx-skills', skills: ['conflict'] },
+    { name: 'failure', repo: 'owner/failure', installer: 'npx-skills', skills: ['failure'] },
+  ] });
+  const collision = join(f.home, '.hermes', 'skills', 'conflict');
+  await mkdir(collision, { recursive: true });
+  await writeFile(join(collision, 'SKILL.md'), 'keep');
+  await installed(f.home, 'failure');
+  const prerequisite = f.options.run;
+  f.options.run = async (executable, args, options) => args.includes('update')
+    ? { code: 1, stderr: 'upstream unavailable' } : prerequisite(executable, args, options);
+  const result = await runUpdate(f.options);
+  assert.equal(result.exitCode, 1);
+  assert.deepEqual(result.results.map(({ status }) => status), ['conflict', 'failed']);
+  assert.match(result.results[0].detail, /destination conflict/);
+  assert.match(result.results[1].detail, /upstream unavailable/);
 });
 
 test('Windows requires taskkill before starting processes that may time out', async (t) => {

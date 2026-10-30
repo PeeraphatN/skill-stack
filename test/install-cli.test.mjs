@@ -23,6 +23,30 @@ test('CLI loads its adjacent manifest from another working directory and exits n
   assert.match(result.stdout, /skipped: ponytail/);
 });
 
+test('status command loads the adjacent manifest and reports missing skills without network prerequisites', async (t) => {
+  const directory = await mkdtemp(join(root, '.test-status-home-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await cp(join(root, 'lib'), join(directory, 'lib'), { recursive: true });
+  await cp(join(root, 'install.mjs'), join(directory, 'install.mjs'));
+  await writeFile(join(directory, 'manifest.json'), JSON.stringify({ agents: ['codex'], skills: [
+    { name: 'sample', repo: 'owner/sample', installer: 'npx-skills', skills: ['sample'] },
+  ] }));
+  const result = spawnSync(process.execPath, [join(directory, 'install.mjs'), 'status'], {
+    cwd: tmpdir(), env: { ...process.env, HOME: directory }, encoding: 'utf8', timeout: 10_000,
+  });
+  assert.equal(result.status, 1);
+  assert.match(result.stdout, /missing: sample\/sample/);
+  assert.doesNotMatch(result.stderr, /Prerequisites failed/);
+});
+
+test('CLI rejects unknown commands and arguments', async () => {
+  const result = spawnSync(process.execPath, [join(root, 'install.mjs'), 'remove'], {
+    encoding: 'utf8', timeout: 10_000,
+  });
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /Usage: node install\.mjs \[install\|status\|update\]/);
+});
+
 test('CLI rejects its invalid manifest before starting prerequisites, including through a symlink', async (t) => {
   const directory = await mkdtemp(join(tmpdir(), 'installer invalid ไทย '));
   t.after(() => rm(directory, { recursive: true, force: true }));

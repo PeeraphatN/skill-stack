@@ -2,6 +2,8 @@
 
 สถานะ: ข้อกำหนดผลิตภัณฑ์สำหรับ MVP ยังไม่ใช่ผลยืนยันว่า installer ทำงานได้แล้ว
 
+หมายเหตุภายหลัง: เพิ่มคำสั่ง status/update ใน Issue #10 และเพิ่ม skills-only adapters สำหรับสี่แหล่งใน Issue #11 แล้ว ดู [คู่มือ installer](installer.md) และ [คู่มือ adapters](adapters.md) ส่วนการตรวจรับข้าม OS ยังเป็นงาน Issue #9
+
 เอกสารนี้เป็นผลลัพธ์ของ [Issue #2: เขียน PRD](https://github.com/PeeraphatN/skill-stack/issues/2)
 โดยอ้างอิง [README](../README.md) และ [Issue #1: Skill Stack MVP](https://github.com/PeeraphatN/skill-stack/issues/1)
 ใช้กำหนดว่าผู้ใช้ต้องทำอะไรได้และจะตรวจรับอย่างไร ส่วนรายละเอียดทางเทคนิคเป็นงานของ SRS และ issue ถัดไป

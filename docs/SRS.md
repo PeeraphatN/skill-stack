@@ -1,8 +1,10 @@
 # Software Requirements Specification: Skill Stack MVP
 
+หมายเหตุภายหลัง: เอกสารนี้บันทึก baseline MVP ตอน Issue #3; Issue #10 เพิ่มคำสั่ง status/update และ Issue #11 เพิ่ม skills-only adapters ภายหลัง ดู [คู่มือ installer](installer.md) และ [คู่มือ adapters](adapters.md) การตรวจรับข้าม OS ยังอยู่ใน Issue #9
+
 เอกสารนี้กำหนดสิ่งที่ Skill Stack MVP ต้องทำและวิธีตรวจรับ สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3) โดยอ้างอิง [README](../README.md) และ [issue #1: Skill Stack MVP](https://github.com/PeeraphatN/skill-stack/issues/1) เป็นหลัก ข้อกำหนดที่ใช้คำว่า “ต้อง” เป็นเงื่อนไขตรวจรับ ไม่ใช่รายงานความสามารถที่ทดสอบแล้ว
 
-สถานะ: ข้อกำหนดสำหรับนำไปออกแบบและพัฒนา ยังไม่มี installer หรือผลทดสอบข้ามแพลตฟอร์ม เอกสารนี้ไม่เปลี่ยนขอบเขตของ issue อื่นและไม่ถือว่าปิดงานเหล่านั้นแล้ว
+สถานะ ณ ตอนเขียน Issue #3: ข้อกำหนดสำหรับนำไปออกแบบและพัฒนา ยังไม่มี installer หรือผลทดสอบข้ามแพลตฟอร์ม เอกสารนี้บันทึก baseline เดิม ไม่เปลี่ยนขอบเขตของ issue อื่น
 
 ## 1. เป้าหมายและขอบเขต
 

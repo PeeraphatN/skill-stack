@@ -110,7 +110,7 @@ test('allows extending public sources and using a supported subset of agents', (
   assert.deepEqual(parseManifest(JSON.stringify(manifest)), manifest);
 });
 
-test('ships exactly the selected Issue #5 MVP skills for all four agents', async () => {
+test('ships only the selected skills for all four agents', async () => {
   const { readFile } = await import('node:fs/promises');
   const manifest = parseManifest(await readFile(new URL('../manifest.json', import.meta.url), 'utf8'));
   assert.deepEqual(manifest.agents, ['codex', 'pi', 'hermes-agent', 'claude-code']);
@@ -124,5 +124,9 @@ test('ships exactly the selected Issue #5 MVP skills for all four agents', async
       'to-tickets', 'triage', 'wayfinder', 'writing-for-agents',
     ]],
     ['thananon/9arm-skills', ['debug-mantra', 'post-mortem', 'scrutinize', 'management-talk']],
+    ['trailhq/Trail-Code', ['graft']],
+    ['ayghri/i-have-adhd', ['i-have-adhd']],
+    ['Ar9av/obsidian-wiki', ['wiki-setup', 'wiki-capture', 'wiki-query']],
+    ['multica-ai/andrej-karpathy-skills', ['karpathy-guidelines']],
   ]);
 });

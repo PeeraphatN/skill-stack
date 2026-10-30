@@ -27,7 +27,8 @@ sh "/path/to/skill-stack/install.sh"
 รองรับ path ที่มีช่องว่างและอักษรไทย เมื่อเรียกด้วย path ให้ครอบด้วยเครื่องหมายคำพูด
 ควรเรียกไฟล์ wrapper ใน checkout โดยตรง ไม่ใช่ symlink ที่วางแยกจาก `install.mjs`
 
-arguments ถูกส่งต่อแบบเดิมทุกตัว แต่ `install.mjs` ปัจจุบันยังไม่มี command-line options
+wrapper ส่ง arguments ให้ `install.mjs` โดยตรง ใช้ `sh install.sh status` หรือ `./install.sh update`
+บน Linux/macOS และ `./install.ps1 status` หรือ `./install.ps1 update` บน PowerShell ได้
 ถ้าขึ้น `node: not found` ให้ติดตั้ง Node.js >=22.20.0 หรือเพิ่ม Node.js ใน PATH แล้วเรียกใหม่
 wrapper จะจบด้วยสถานะไม่สำเร็จเมื่อหา Node.js ไม่พบ และไม่ติดตั้ง Node.js ให้เอง
 
@@ -53,8 +54,8 @@ $LASTEXITCODE
 
 wrapper หา `install.mjs` จาก directory ของตัวเอง ส่ง arguments ต่อให้ Node ด้วย `@args`
 และคืน exit code ของ Node ตามจริง โดยไม่เปลี่ยน working directory ดังนั้น `HERMES_HOME`
-ที่เป็น relative path ยังอิง directory ที่เรียกเหมือนใช้ Node โดยตรง ปัจจุบัน `install.mjs`
-ยังไม่มี CLI options; การส่ง arguments ต่อไม่ได้เพิ่มคำสั่งหรือ flags ให้ installer
+ที่เป็น relative path ยังอิง directory ที่เรียกเหมือนใช้ Node โดยตรง ส่ง `status` หรือ `update`
+ต่อท้าย wrapper เพื่อเรียกคำสั่งเดียวกับ Node โดยตรง
 ถ้าเรียก Node ไม่ได้ wrapper จะหยุดด้วย error และสถานะไม่สำเร็จ ให้ติดตั้ง Node.js หรือแก้ PATH ก่อนลองใหม่
 ตรรกะตรวจ prerequisites, manifest และติดตั้งทั้งหมดอยู่ใน Node ไม่มีรายการ skills ซ้ำใน wrapper
 
@@ -64,9 +65,25 @@ wrapper หา `install.mjs` จาก directory ของตัวเอง ส
 node 'C:\งานของฉัน\skill stack\install.mjs'
 ```
 
+## ตรวจสถานะและอัปเดต
+
+`node install.mjs status` ตรวจเฉพาะ skills ใน manifest ปัจจุบัน ไม่เรียก npm/npx หรือ network
+แต่ละชื่อรายงาน `installed`, `missing` หรือ `conflict` โดยตรวจ global source และปลายทางของ agents
+รวมถึงความถูกต้องของ symlink/junction หรือ copy fallback เหมือนขั้นตรวจติดตั้ง หากมีรายการขาดหรือขัดแย้ง
+คำสั่งคืน exit code 1; จะคืน 0 เมื่อทุกรายการครบและตรวจผ่าน
+
+`node install.mjs update` อัปเดตเฉพาะ entry ใน manifest ที่ skills ทุกชื่อมีอยู่และตรวจผ่านครบทุก agent
+ใช้ `skills@1.7.2 update <names> --global --yes` แยกตาม source จึงไม่สั่งอัปเดต skills อื่นนอก manifest
+entry ที่ยังไม่มีจะไม่ถูกติดตั้งเพิ่ม; entry ที่ conflict จะไม่ถูกแตะ ให้แก้ conflict หรือเรียก `node install.mjs`
+ก่อน หากบาง entry ล้มเหลว คำสั่งทำ entry ถัดไปต่อและคืน exit code 1 พร้อมผลรายชื่อ
+
+การอัปเดตอาศัย source metadata ที่ `skills` CLI เก็บตอนติดตั้ง หาก skill เก่าถูกติดตั้งด้วยวิธีอื่น
+หรือไม่มี metadata เพียงพอ CLI อาจอัปเดตไม่ได้ ให้ดูข้อความจาก CLI และติดตั้ง entry นั้นใหม่ผ่าน Skill Stack
+คำสั่งนี้ไม่เปลี่ยน manifest, ไม่ลบ skills ที่ถูกเอาออกจาก manifest และไม่ได้ pin upstream revision
+
 ## สิ่งที่สคริปต์ทำ
 
-สคริปต์ตรวจ manifest ทั้งชุดก่อนเรียก process จากนั้นตรวจ Node, สิทธิ์เขียน home, npm/npx,
+คำสั่ง `install` ตรวจ manifest ทั้งชุดก่อนเรียก process จากนั้นตรวจ Node, สิทธิ์เขียน home, npm/npx,
 Git และรุ่น skills CLI การตรวจ CLI อาจดาวน์โหลด package เข้า npm cache แต่ยังไม่ติดตั้ง skills
 หาก prerequisites ไม่ผ่าน ทุก entry เป็น `skipped` และคืน exit code 1
 
@@ -141,5 +158,6 @@ working directory และ exit code ทั้งสำเร็จและล
 การตรวจไฟล์ไม่ได้ยืนยันว่า agent โหลด skill หรือเรียก workflow ได้ครบ รวมถึง hooks, native plugins
 และเครื่องมือภายนอกที่ skill ต้องใช้ [ผล Issue #9](cross-platform-validation.md) ตรวจ global install จริงครบ 23 skills และการเปลี่ยนไฟล์แล้วสะท้อนผ่าน link
 บน macOS กับ Windows native แล้ว พร้อม rerun/conflict และ copy warning บน macOS ส่วน Linux,
-permission fallback ของ Windows และการค้นพบ skills ภายใน agents ยังขาดหลักฐาน จึงยังไม่มีผลตรวจรับ MVP ครบทุก OS
-`install.sh` เพิ่มใน Issue #7 และ `install.ps1` เพิ่มใน Issue #8 ส่วนคำสั่ง status/update เป็นงาน Issue #10
+permission fallback ของ Windows และการค้นพบ skills ภายใน agents ยังขาดหลักฐาน จึงยังไม่มีผลตรวจรับครบทุก OS
+หลักฐานนี้เป็นของชุด 23 skills ก่อน Issue #11; ยังไม่ได้ติดตั้งและทดสอบ manifest ปัจจุบัน 29 skills จริง
+`install.sh` เพิ่มใน Issue #7, `install.ps1` ใน Issue #8 และคำสั่ง `status`/`update` ใน Issue #10
