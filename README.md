@@ -1,42 +1,42 @@
 # Skill Stack
 
-ศูนย์รวมสำหรับติดตั้งและจัดการ skills ที่ใช้กับ coding agents หลายตัวบนเครื่องใหม่
+Install and manage the same set of skills for multiple coding agents on a new machine.
 
-เป้าหมายคือให้ติดตั้ง skills ชุดเดียวกันบน **Codex, Pi, Hermes และ Claude Code** ได้ง่าย โดยใช้ `npx skills` เป็น installer กลาง และให้ระบบจัดการ source กับ symlink ผ่าน `~/.agents/skills` ตามมาตรฐานของ skills CLI
+Skill Stack installs skills for Codex, Pi, Hermes, and Claude Code through `npx skills`. The skills CLI manages sources and links through `~/.agents/skills`.
 
-ผลสำรวจสำหรับ [Issue #4](https://github.com/PeeraphatN/skill-stack/issues/4) อยู่ใน [วิธีติดตั้งและความเข้ากันได้ของ skills MVP](docs/install-methods.md) พร้อมคำสั่ง ชื่อ skills และหลักฐาน upstream โดย CLI รุ่นที่ตรวจรองรับ `codex`, `pi`, `hermes-agent` และ `claude-code` Codex/Pi อ่าน `~/.agents/skills` โดยตรง, Hermes ใช้ `~/.hermes/skills` และ Claude Code ใช้ `~/.claude/skills`
+The research for [Issue #4](https://github.com/PeeraphatN/skill-stack/issues/4) is documented in [MVP skill installation methods and compatibility](docs/install-methods.md), including commands, skill names, and upstream evidence. The tested CLI version supports `codex`, `pi`, `hermes-agent`, and `claude-code`. Codex and Pi read `~/.agents/skills` directly. Hermes uses `~/.hermes/skills`, while Claude Code uses `~/.claude/skills`.
 
-## ปัญหา
+## Problem
 
-เวลาย้ายเครื่องทำงานต้องติดตั้ง skills ทีละรายการด้วยมือ วิธีติดตั้งของแต่ละ skill ก็ไม่เหมือนกัน และแต่ละ OS อาจมี path หรือคำสั่งต่างกัน
+Setting up a new machine means installing skills one by one. Installation methods vary between skills, and paths or commands may differ across operating systems.
 
-## เป้าหมาย
+## Goals
 
-- ติดตั้ง skills ที่ใช้งานประจำด้วยคำสั่งเดียว
-- รองรับ Linux, macOS และ Windows
-- ใช้งานกับ Codex, Pi, Hermes และ Claude Code เป็นหลัก
-- เก็บรายการ skills ไว้ใน manifest เดียว
-- ใช้ symlink ที่ skills CLI จัดการให้
-- เพิ่ม custom skills ของตัวเองได้ในอนาคต
-- ทำให้ custom skills publish เป็น public skills และติดตั้งผ่าน `npx skills` ได้
+- Install regularly used skills with one command.
+- Support Linux, macOS, and Windows.
+- Target Codex, Pi, Hermes, and Claude Code.
+- Keep the selected skills in one manifest.
+- Let the skills CLI manage links.
+- Add personal skills later.
+- Publish personal skills publicly so they can be installed through `npx skills`.
 
 ## MVP
 
-MVP จะเริ่มจาก skills ที่ติดตั้งผ่าน `npx skills add` ได้ง่ายก่อน:
+The MVP started with repositories that work directly with `npx skills add`:
 
 - [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
 - [petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop)
 - [mattpocock/skills](https://github.com/mattpocock/skills)
 - [thananon/9arm-skills](https://github.com/thananon/9arm-skills)
 
-เพิ่มอีกสี่แหล่งใน Issue #11 โดยติดตั้งเฉพาะ skills ที่เลือกผ่าน `npx skills` ไม่รัน native plugin, hook หรือ setup ของ upstream อัตโนมัติ ดูข้อจำกัดแต่ละแหล่งใน [คู่มือ adapters](docs/adapters.md):
+Issue #11 added four more sources. Skill Stack installs only the selected skills through `npx skills`; it does not run upstream plugins, hooks, or setup steps. See [Adapter behavior and limitations](docs/adapters.md):
 
 - [trailhq/Trail-Code](https://github.com/trailhq/Trail-Code)
 - [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd)
 - [Ar9av/obsidian-wiki](https://github.com/Ar9av/obsidian-wiki)
 - [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
 
-## แนวทางการทำงาน
+## How it works
 
 ```text
 skill-stack repository
@@ -51,13 +51,13 @@ npx skills add --global
 ~/.agents/skills/<skill>
         |
         v
-Codex / Pi อ่านโดยตรง
-Hermes อ่านผ่าน symlink ที่ ~/.hermes/skills/<skill>
+Codex / Pi read directly
+Hermes reads through ~/.hermes/skills/<skill>
 ```
 
-โปรเจกต์นี้จะไม่จัดการ symlink เอง เพราะ `npx skills` มีหน้าที่ดูแล global skills และ agent directories อยู่แล้ว
+Skill Stack does not manage links itself. The skills CLI owns global skills and agent destinations.
 
-## โครงสร้างที่วางแผนไว้
+## Project structure
 
 ```text
 skill-stack/
@@ -70,91 +70,102 @@ skill-stack/
 
 ## Manifest
 
-[manifest.json](manifest.json) เลือก 29 skills จากแปดแหล่งให้ `codex`, `pi`, `hermes-agent` และ `claude-code`
-โดยระบุชื่อ skill ที่ต้องการจากแต่ละ repository อย่างชัดเจน อ่านรูปแบบและกติกาได้ที่
-[Manifest contract](docs/manifest.md) และข้อจำกัดของแหล่งที่เพิ่มใน [คู่มือ adapters](docs/adapters.md)
+[manifest.json](manifest.json) selects 29 skills from eight repositories for `codex`, `pi`, `hermes-agent`, and `claude-code`. Each repository entry lists the exact skills to install. See the [manifest contract](docs/manifest.md) and [adapter limitations](docs/adapters.md).
 
-ตรวจ manifest โดยไม่ติดตั้ง และรันทดสอบด้วย Node.js >=22.20.0:
+Validate the manifest and run the tests with Node.js 22.20.0 or later:
 
 ```bash
 node scripts/validate-manifest.mjs
 node --test
 ```
 
-## ติดตั้ง skills
+## Install skills
 
 ```bash
 node install.mjs
 ```
 
-บน Linux/macOS เรียกผ่าน shell wrapper ได้:
+On Linux or macOS, use the shell wrapper:
 
 ```sh
 ./install.sh
-# หรือ
+# or
 sh install.sh
 ```
 
-ถ้าอยู่ directory อื่น ให้เรียก `sh "/path/to/skill-stack/install.sh"` โดยใช้ path ของ checkout จริง
-wrapper เรียก `install.mjs` ข้างตัวเองและคืน exit code เดียวกัน ต้องมี Node.js ใน PATH เช่นเดิม
+From another directory, run `sh "/path/to/skill-stack/install.sh"` with the real checkout path. The wrapper runs the adjacent `install.mjs` and returns the same exit code. Node.js must be available in `PATH`.
 
-บน Windows เรียกผ่าน PowerShell ได้ด้วย:
+On Windows, use the PowerShell wrapper:
 
 ```powershell
 .\install.ps1
 ```
 
-ถ้าอยู่ directory อื่น ใช้ `& 'C:\path with spaces\skill-stack\install.ps1'`
-wrapper เรียก `install.mjs` ข้างตัวเองและคืน exit code เดียวกัน โดยต้องมี `node` ใน PATH
-ถ้า execution policy ไม่อนุญาตให้รันสคริปต์ ใช้ `node 'C:\path with spaces\skill-stack\install.mjs'`
-ได้โดยไม่ต้องเปลี่ยน policy อ่านรายละเอียดใน [คู่มือ installer](docs/installer.md)
+From another directory, run `& 'C:\path with spaces\skill-stack\install.ps1'`. The wrapper runs the adjacent `install.mjs` and returns the same exit code. `node` must be available in `PATH`.
 
-ในอนาคตอาจรองรับการเรียกผ่าน package โดยตรง:
+If the execution policy blocks scripts, run `node 'C:\path with spaces\skill-stack\install.mjs'` instead. See the [installer guide](docs/installer.md).
+
+A future release may support direct package execution:
 
 ```bash
 npx github:<owner>/skill-stack
 ```
 
-เรียกด้วย absolute path จาก directory อื่นได้ สคริปต์หา manifest ข้างตัวเองเสมอ
+The installer can run by absolute path from any directory because it resolves the manifest next to its own script.
 
-ตรวจสถานะ skills ใน manifest โดยไม่ดาวน์โหลดหรือติดตั้ง:
+Check installed skills without downloading or changing anything:
 
 ```bash
 node install.mjs status
 ```
 
-อัปเดตเฉพาะ skills ใน manifest ที่ติดตั้งครบแล้ว:
+Update only manifest skills that are already installed for every configured agent:
 
 ```bash
 node install.mjs update
 ```
 
-อ่านการตรวจผล การรันซ้ำ และวิธีแก้ปัญหาได้ที่ [คู่มือ installer](docs/installer.md)
+See the [installer guide](docs/installer.md) for verification, repeat runs, and troubleshooting.
 
-## ข้อกำหนดเบื้องต้น
+## Requirements
 
-- Node.js >=22.20.0 พร้อม npm และ npx ใน PATH
-- Git ใน PATH และเชื่อมต่อ npm registry กับ public GitHub repositories ได้
-- สิทธิ์เขียน home และ agent destinations ของผู้ใช้ปัจจุบัน
+- Node.js 22.20.0 or later, with npm and npx in `PATH`.
+- Git in `PATH`, with access to the npm registry and public GitHub repositories.
+- Write access to the current user's home directory and agent destinations.
 
-installer เรียก `skills@1.7.2` ผ่าน npx โดยไม่ต้องติดตั้ง skills CLI ล่วงหน้า
-บน Windows ต้องเป็นการติดตั้ง Node.js/npm ที่มี `node_modules/npm/bin/npm-cli.js` และ `npx-cli.js`
-ข้าง Node หรือใน directory ของ PATH เพื่อเรียกผ่าน Node โดยไม่ใช้ shell
+The installer runs `skills@1.7.2` through npx, so the skills CLI does not need to be installed separately.
+
+On Windows, the Node.js/npm installation must provide `node_modules/npm/bin/npm-cli.js` and `npx-cli.js` next to Node or within a directory in `PATH`. This lets the installer invoke npm without a shell.
 
 ## Roadmap
 
-1. สรุป install method และชื่อ agent ที่รองรับจริง — เสร็จ
-2. เพิ่ม `manifest.json` และ `install.mjs` — เสร็จ
-3. เพิ่ม wrapper สำหรับ shell และ PowerShell — เสร็จ
-4. เพิ่มคำสั่งตรวจสอบสถานะและ update (#10) — เสร็จ
-5. เพิ่ม selected skills จาก Trail-Code และอีกสามแหล่ง (#11) — เสร็จแบบ skills-only
-6. ทดสอบติดตั้งจริงครบสาม OS และยืนยันการค้นพบใน agents (#9) — ยังไม่เสร็จ
-7. เพิ่ม custom skills ส่วนตัวและ publish ผ่าน `npx skills` — ยังไม่เริ่ม
+1. Document installation methods and supported agent names (done).
+2. Add `manifest.json` and `install.mjs` (done).
+3. Add shell and PowerShell wrappers (done).
+4. Add `status` and `update` commands (#10) (done).
+5. Add selected skills from Trail-Code and three other sources (#11) (done, skills only).
+6. Test installation on all three operating systems and confirm agent discovery (#9) (incomplete).
+7. Test frontend skills on real projects before adding them to the manifest (planned after v1).
+8. Add and publish personal skills through `npx skills` (not started).
 
-## สถานะ
+### Frontend skills after v1
 
-ข้อกำหนดผลิตภัณฑ์และเกณฑ์ตรวจรับ MVP: [PRD](docs/PRD.md)
+The NIGHTSHIFT showcase turned out well, but one experiment is not enough to show which skills are worth keeping for real work. These repositories are therefore not in `manifest.json`:
 
-มี manifest, validator, installer และคำสั่ง `status`/`update` พร้อม automated tests แล้ว ผล [Issue #9: cross-platform validation](docs/cross-platform-validation.md) เป็นหลักฐานของชุดเดิม 23 skills บน macOS และ Windows; ยังไม่มีผลติดตั้งจริงสำหรับ manifest ปัจจุบัน 29 skills, Linux native หรือการยืนยัน discovery ภายใน agents จึงยังไม่ถือว่าตรวจรับครบสาม OS.
+- [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill): find and maintain a visual direction.
+- [jman528/design-extract-designlang](https://github.com/jman528/design-extract-designlang): extract a design language from references.
+- [philotheephilix/reactbits.dev-skill](https://github.com/philotheephilix/reactbits.dev-skill): select and adapt React Bits components.
+- [greensock/gsap-skills](https://github.com/greensock/gsap-skills): plan motion with GSAP and ScrollTrigger.
+- [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli): test UI and browser interactions.
+- [pbakaus/impeccable](https://github.com/pbakaus/impeccable): design, review, and polish frontend work.
+- [jakubantalik/transitions.dev](https://github.com/jakubantalik/transitions.dev): design transition patterns.
 
-ข้อกำหนดระบบและเกณฑ์ตรวจรับ MVP อยู่ใน [SRS](docs/SRS.md) สำหรับ [issue #3](https://github.com/PeeraphatN/skill-stack/issues/3)
+Before adding any of them, test them on several real projects, verify their installation methods and skill names, and keep only those that add distinct value. Track the results in [Issue #12](https://github.com/PeeraphatN/skill-stack/issues/12).
+
+## Status
+
+The product requirements and MVP acceptance criteria are in the [PRD](docs/PRD.md).
+
+The manifest, validator, installer, and `status`/`update` commands have automated tests. [Issue #9: cross-platform validation](docs/cross-platform-validation.md) records macOS and Windows results for the earlier 23-skill manifest. The current 29-skill manifest still needs native Linux testing and discovery checks inside the agents, so cross-platform acceptance is incomplete.
+
+The system requirements and MVP acceptance criteria are in the [SRS](docs/SRS.md) for [Issue #3](https://github.com/PeeraphatN/skill-stack/issues/3).
